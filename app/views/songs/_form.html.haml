@@ -1,0 +1,15 @@
+= simple_form_for(@song) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :author
+    = f.input :lyric
+    = f.input :user_id
+    = f.input :link
+    = f.input :reference
+    = f.input :mood
+    = f.input :order
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%h2= @songbook.title
+
+%ul
+  -@songbook.songbook_songs.each do |sbs|
+    %li=link_to(sbs.song.title, sbs.song)
+
+
+-@songbook.songbook_songs.each do |sbs|
+  %h4=sbs.song.title
+  %p
+    %strong Orden: 
+    =sbs.song.order
+  %pre{:style => "white-space: pre;"}=raw sbs.song.clean_lyric.gsub("\r", "<br />").upcase
+
+
+= link_to 'Edit', edit_songbook_path(@songbook)
+\|
+= link_to 'Back', songbooks_path

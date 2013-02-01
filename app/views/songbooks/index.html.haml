@@ -1,0 +1,17 @@
+%h1 Songbooks
+
+%table.table.table-bordered.table-hover.table-striped
+  %tr
+    %th Nombre
+    %th
+    %th
+
+  - @songbooks.each do |songbook|
+    %tr
+      %td=link_to(songbook.title, songbook)
+      %td= link_to 'Edit', edit_songbook_path(songbook) if can? :update, songbook
+      %td= link_to 'Destroy', songbook, method: :delete, data: { confirm: 'Are you sure?' } if can? :delete, songbook
+
+%br
+
+= link_to 'New Songbook', new_songbook_path

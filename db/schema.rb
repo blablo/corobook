@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201011308) do
+ActiveRecord::Schema.define(:version => 20130201024905) do
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,33 @@ ActiveRecord::Schema.define(:version => 20130201011308) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "songbook_songs", :force => true do |t|
+    t.integer  "song_id"
+    t.integer  "songbook_id"
+    t.integer  "order"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "songbooks", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "songs", :force => true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.text     "lyric"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.string   "reference"
+    t.integer  "mood"
+    t.string   "order"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

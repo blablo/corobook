@@ -1,0 +1,29 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @song.title
+%p
+  %b Reference:
+  = @song.reference
+%p
+  %b Author:
+  = @song.author
+%p
+  %b Mood:
+  = @song.mood
+
+%p
+  %b Lyric:
+  %pre{:style => "white-space: pre;"}=chordify(@song.lyric)
+
+%p
+  %b Link:
+  = @song.link
+%p
+  %b Order:
+  = @song.order
+
+= link_to 'Edit', edit_song_path(@song)
+\|
+= link_to 'Back', songs_path
