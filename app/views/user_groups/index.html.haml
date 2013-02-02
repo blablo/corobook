@@ -1,0 +1,23 @@
+%h1 Listing user_groups
+
+%table
+  %tr
+    %th User
+    %th Group
+    %th Role
+    %th
+    %th
+    %th
+
+  - @user_groups.each do |user_group|
+    %tr
+      %td= user_group.user_id
+      %td= user_group.group_id
+      %td= user_group.role
+      %td= link_to 'Show', user_group
+      %td= link_to 'Edit', edit_user_group_path(user_group)
+      %td= link_to 'Destroy', user_group, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New User group', new_user_group_path

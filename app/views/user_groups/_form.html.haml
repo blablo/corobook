@@ -1,0 +1,10 @@
+= simple_form_for(@user_group) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :user_id
+    = f.input :group_id
+    = f.input :role
+
+  .form-actions
+    = f.button :submit

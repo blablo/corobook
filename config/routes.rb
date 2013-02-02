@@ -1,4 +1,10 @@
 Corobook::Application.routes.draw do
+  resources :groups
+
+
+  resources :user_groups
+
+
   resources :songbooks
 
 

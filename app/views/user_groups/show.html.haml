@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @user_group.user_id
+%p
+  %b Group:
+  = @user_group.group_id
+%p
+  %b Role:
+  = @user_group.role
+
+= link_to 'Edit', edit_user_group_path(@user_group)
+\|
+= link_to 'Back', user_groups_path
