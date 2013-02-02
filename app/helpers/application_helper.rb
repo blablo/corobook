@@ -19,10 +19,10 @@ module ApplicationHelper
     lines.each do |line|
       if line =~ /\b[CDEFGAB]m?7?\b/ and !prev_chords 
         prev_chords = true
-        formated_lyric += "<span style='color:red'>"+line+"</span>" + "<br />"
+        formated_lyric += "<span style='color:red'>"+line+"</span>\n" 
       else
         prev_chords = false
-        formated_lyric += line + "<br />"
+        formated_lyric += line + "\n"
       end
     end
     return raw formated_lyric
