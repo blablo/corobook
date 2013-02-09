@@ -4,7 +4,9 @@
     %th Autor
     %th Referencia
     %th Mood
-    %th=@songbook.title
+    %th VC2M
+    %th USU
+    %th ASA
     %th
 
 
@@ -14,7 +16,10 @@
       %td=song.author
       %td=song.reference
       %td=song.mood
+      %td=song.cantada_count
+      %td=song.songbooks_ago
       %td
+
         -if can? :delete, song
           -if song.in_songbook?(@songbook.id)
             =link_to(image_tag('icons/remove.png'),  {:action => "songbook_remove", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "remove_song")
@@ -22,6 +27,7 @@
           -else
             =link_to(image_tag('icons/add.gif'),  {:action => "songbook_add", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "add_song")
             =link_to(image_tag('icons/remove.png'),  {:action => "songbook_remove", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "remove_song", :style => "display: none")
+
       %td
         =link_to 'Edit', edit_song_path(song) if can? :update, song
         =link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } if can? :delete, song

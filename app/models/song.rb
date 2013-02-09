@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 class Song < ActiveRecord::Base
   attr_accessible :author, :link, :lyric, :mood, :order, :reference, :title, :user_id
   has_many :songbook_songs
+  has_many :songbooks, :through => :songbook_songs
 
   def in_songbook?(sbid)
     !self.songbook_songs.where('songbook_id = ?', sbid).empty?
@@ -20,4 +22,24 @@ class Song < ActiveRecord::Base
     return clean_lyric
   end
 
+  def songbooks_ago
+    if self.songbooks.empty?
+      return '∞' 
+    else
+      sb = self.songbooks.order('fecha asc').last
+      return Songbook.where('fecha > ?', sb.fecha).count
+    end
+  end
+
+
+  def cantada_count
+    if self.songbooks.empty?
+      return 0 
+    else
+      sb = self.songbooks.where('fecha > ?', Date.today-2.months)
+      return sb.count
+    end
+
+  end
+    
 end
