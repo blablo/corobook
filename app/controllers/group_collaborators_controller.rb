@@ -51,6 +51,7 @@ class GroupCollaboratorsController < ApplicationController
           user = User.new({:email => @group_collaborator.email, :name => @group_collaborator.name })
           user.password = 'test1212'
           user.group_id = current_user.group_id
+          user.role = @group_collaborator.role
           user.reset_password_token= User.reset_password_token 
           user.reset_password_sent_at= Time.now
           if user.save

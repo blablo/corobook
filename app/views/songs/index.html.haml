@@ -3,10 +3,10 @@
     %th Titulo
     %th Autor
     %th Referencia
-    %th Mood
-    %th VC2M
-    %th USU
-    %th ASA
+    %th Intensidad
+    %th # veces <br /> cantada
+    %th # domingos <br />  sin cantarla
+    %th Agregar
     %th
 
 
@@ -19,15 +19,16 @@
       %td=song.cantada_count
       %td=song.songbooks_ago
       %td{:class => "song" + song.id.to_s}
-        -if song.voted?(current_user)
-          =image_tag('icons/nolike.png')
-        -else
-          =link_to(image_tag('icons/like.png'), { :action => "vote_add", :song_id => song.id}, :remote => true,:class => "add_vote")
-          =image_tag('icons/nolike.png', :style => "display: none")
+        -if current_user
+          -if song.voted?(current_user)
+            =image_tag('icons/nolike.png')
+          -else
+            =link_to(image_tag('icons/like.png'), { :action => "vote_add", :song_id => song.id}, :remote => true,:class => "add_vote")
+            =image_tag('icons/nolike.png', :style => "display: none")
 
         %span.votes (#{song.votes.count})
 
-        -if can? :delete, song
+        -if current_user and current_user.role > 3
           -if song.in_songbook?(@songbook.id)
             =link_to(image_tag('icons/remove.png'),  {:action => "songbook_remove", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "remove_song")
             =link_to(image_tag('icons/add.gif'),  {:action => "songbook_add", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "add_song", :style => "display: none")
@@ -36,8 +37,10 @@
             =link_to(image_tag('icons/remove.png'),  {:action => "songbook_remove", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "remove_song", :style => "display: none")
 
       %td
-        =link_to 'Edit', edit_song_path(song) if can? :update, song
-        =link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } if can? :delete, song
+        -if current_user and current_user.role > 2
+          =link_to 'Edit', edit_song_path(song) if can? :update, song
+        -if current_user and current_user.is_admin?
+          =link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

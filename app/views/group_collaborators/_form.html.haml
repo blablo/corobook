@@ -4,6 +4,7 @@
   .form-inputs
     = f.input :email
     = f.input :name
+    = f.select :role,  [["viewer", 1], ["song manager", 3], ["songbook manager", 5], ["admin", 9] ]
 
   .form-actions
     = f.button :submit
