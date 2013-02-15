@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
   default from: "contacto@corobook.com"
 
-  def invited_collaborator(user)
+  def invited_collaborator(creador, user)
     @user = user
-
+    @creador = creador
     mail(:to => "#{user.name} <#{user.email}>", :subject => "Te cree una cuenta en Corobook")
   end
 

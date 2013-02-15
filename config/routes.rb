@@ -17,6 +17,7 @@ Corobook::Application.routes.draw do
 
   resources :songs do
     collection do
+      get :vote_add
       get :songbook_add
       get :songbook_remove
     end

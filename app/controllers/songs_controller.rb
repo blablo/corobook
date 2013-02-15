@@ -107,4 +107,20 @@ class SongsController < ApplicationController
       end
     end
   end
+
+
+
+  def vote_add
+    
+    vote = current_user.votes.build
+    vote.song_id = params[:song_id]
+    if vote.save
+      @votes = vote.song.votes.count
+      respond_to do |format|
+        format.js { render :js => "$('.song#{vote.song_id} .add_vote').next().show(); $('.song#{vote.song_id} .add_vote').hide();$('.song#{vote.song_id} .votes').html('(#{@votes})')" }
+      end
+    end
+  end
+
+
 end

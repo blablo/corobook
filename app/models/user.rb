@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   belongs_to :group
+  has_many :votes
+
   rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

@@ -3,6 +3,7 @@ class Song < ActiveRecord::Base
   attr_accessible :author, :link, :lyric, :mood, :order, :reference, :title, :user_id
   has_many :songbook_songs
   has_many :songbooks, :through => :songbook_songs
+  has_many :votes
 
   def in_songbook?(sbid)
     !self.songbook_songs.where('songbook_id = ?', sbid).empty?
@@ -40,6 +41,14 @@ class Song < ActiveRecord::Base
       return sb.count
     end
 
+  end
+
+  def voted?(user)
+    if !Vote.where('user_id = ? and song_id = ?', user.id, self.id).empty?
+      return true 
+    else
+      return false
+    end
   end
     
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214025434) do
+ActiveRecord::Schema.define(:version => 20130215071222) do
 
   create_table "group_collaborators", :force => true do |t|
     t.string   "email"
@@ -102,5 +102,12 @@ ActiveRecord::Schema.define(:version => 20130214025434) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "votes", :force => true do |t|
+    t.integer  "song_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

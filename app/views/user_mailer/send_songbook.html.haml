@@ -7,5 +7,5 @@ Estos son los coros para el #{@songbook.fecha.strftime('%e/%m/%Y')}
     %li=link_to(song.title, song)
 
 -if !@user.reset_password_token.blank?
-  Aún no has creado tu cuenta en Corobook. Te invito a que crees tu cuenta en el siguiente link 
+  PD: Te cree una cuenta en Corobook, solo tienes que cambiar la contraseña en el siguiente link:
   %a{:src => "http://corobook.com/users/password/edit?initial=true&reset_password_token=" + @user.reset_password_token} http://corobook.com/users/password/edit?initial=true&reset_password_token=#{@user.reset_password_token} 
