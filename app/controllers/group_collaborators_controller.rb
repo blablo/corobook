@@ -54,7 +54,7 @@ class GroupCollaboratorsController < ApplicationController
           user.reset_password_token= User.reset_password_token 
           if user.save
             @group_collaborator.update_attribute(:user_id, user.id)
-            UserMailer.invited_collaborator(current_user, @user).deliver
+            UserMailer.invited_collaborator(current_user, user).deliver
           end
         end        
         format.html { redirect_to @group_collaborator, notice: 'Group collaborator was successfully created.' }
