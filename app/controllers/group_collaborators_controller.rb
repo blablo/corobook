@@ -52,6 +52,7 @@ class GroupCollaboratorsController < ApplicationController
           user.password = 'test1212'
           user.group_id = current_user.group_id
           user.reset_password_token= User.reset_password_token 
+          user.reset_password_sent_at= Time.now
           if user.save
             @group_collaborator.update_attribute(:user_id, user.id)
             UserMailer.invited_collaborator(current_user, user).deliver
