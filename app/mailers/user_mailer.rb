@@ -1,12 +1,13 @@
+# -*- coding: utf-8 -*-
 class UserMailer < ActionMailer::Base
   default from: "contacto@corobook.com"
 
   def invited_collaborator(creador, user)
     @user = user
     @creador = creador
-    mail(:to => "#{user.name} <#{user.email}>", :subject => "Te cree una cuenta en Corobook")
+    mail(:to => "#{user.name} <#{user.email}>", :subject => "#{creador.name} te creó una cuenta en Corobook")
   end
-
+ 
   def send_songbook(songbook,user)
     @user = user
     @songbook = songbook

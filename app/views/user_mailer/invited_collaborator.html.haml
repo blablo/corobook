@@ -1,7 +1,7 @@
 Hola #{@user.name},
-
+%br
 #{@creador.name} te ha creado una cuenta para que colabores en el grupo #{@creador.group.name}.
-
+%br
 Dependiendo te tu rol, podrás:
 %ul
   %li Votar por una canción para el domingo
@@ -9,7 +9,7 @@ Dependiendo te tu rol, podrás:
   %li Agregar nuevas canciones o modificarlas
   %li .. y alguna otra ocurrencia que se me ocurra después
 
-
+%br
 Para ingresar a ella, solo tienes que ingresar al siguiente link y seleccionar tu contraseña.
 
 http://corobook.com/users/password/edit?initial=true&reset_password_token=#{@user.reset_password_token}
