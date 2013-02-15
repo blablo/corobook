@@ -28,7 +28,7 @@
 
         %span.votes (#{song.votes.count})
 
-        -if current_user and current_user.role > 3
+        -if current_user and current_user.role >= 5
           -if song.in_songbook?(@songbook.id)
             =link_to(image_tag('icons/remove.png'),  {:action => "songbook_remove", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "remove_song")
             =link_to(image_tag('icons/add.gif'),  {:action => "songbook_add", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "add_song", :style => "display: none")
@@ -37,7 +37,7 @@
             =link_to(image_tag('icons/remove.png'),  {:action => "songbook_remove", :song_id => song.id, :songbook_id => @songbook.id}, :remote => true, :class => "remove_song", :style => "display: none")
 
       %td
-        -if current_user and current_user.role > 2
+        -if current_user and current_user.role >= 3
           =link_to 'Edit', edit_song_path(song) if can? :update, song
         -if current_user and current_user.is_admin?
           =link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' }
