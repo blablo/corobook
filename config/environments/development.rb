@@ -21,15 +21,6 @@ Corobook::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "example.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
-  }
 
 
 
@@ -51,4 +42,20 @@ Corobook::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+	
+
+# Action Mailer
+ActionMailer::Base.delivery_method = :smtp  
+ActionMailer::Base.smtp_settings = {            
+  :address              => "smtp.zoho.com", 
+  :port                 => 465,                 
+  :user_name            => 'contacto@corobook.com',
+  :password             => 'mac2009',         
+  :authentication       => :login,
+  :ssl                  => true,
+  :tls                  => true,
+  :enable_starttls_auto => true    
+}
+
 end

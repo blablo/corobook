@@ -1,11 +1,18 @@
 Corobook::Application.routes.draw do
+  resources :group_collaborators
+
+
   resources :groups
 
 
   resources :user_groups
 
 
-  resources :songbooks
+  resources :songbooks do 
+    member do 
+      get :send_email
+    end
+  end
 
 
   resources :songs do

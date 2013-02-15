@@ -79,6 +79,17 @@ Corobook::Application.configure do
     password: ENV["GMAIL_PASSWORD"]
   }
 
+config.action_mailer.delivery_method = :smtp  
+config.action_mailer.smtp_settings = {            
+  :address              => "smtp.zoho.com", 
+  :port                 => 465,                 
+  :user_name            => 'contacto@corobook.com',
+  :password             => 'mac2009',         
+  :authentication       => :login,
+  :ssl                  => true,
+  :tls                  => true,
+  :enable_starttls_auto => true    
+}
 
 
   # Log the query plan for queries taking more than this (works

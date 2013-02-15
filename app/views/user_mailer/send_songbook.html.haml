@@ -1,0 +1,11 @@
+Hola,
+
+Estos son los coros para el #{@songbook.fecha.strftime('%e/%m/%Y')}
+
+%ul
+  -@songbook.songs.each do |song|
+    %li=link_to(song.title, song)
+
+-if !@user.reset_password_token.blank?
+  Aún no has creado tu cuenta en Corobook. Te invito a que crees tu cuenta en el siguiente link 
+  %a{:src => "http://corobook.com/users/password/edit?initial=true&reset_password_token=" + @user.reset_password_token} http://corobook.com/users/password/edit?initial=true&reset_password_token=#{@user.reset_password_token} 

@@ -1,7 +1,6 @@
 class Group < ActiveRecord::Base
   attr_accessible :name
-  has_many :user_groups
-  has_many :users, :through => :user_group
+  has_many :users
 
   def add_to_group(user, role = 1)
     usergroup = UserGroup.new(:user_id => user.id, :group_id => self.id)

@@ -1,0 +1,25 @@
+%h1 Listing group_collaborators
+
+%table
+  %tr
+    %th Email
+    %th User
+    %th Name
+    %th Role
+    %th Group
+    %th
+    %th
+
+  - @group_collaborators.each do |group_collaborator|
+    %tr
+      %td= group_collaborator.email
+      %td= group_collaborator.user_id
+      %td= group_collaborator.name
+      %td= group_collaborator.role
+      %td= group_collaborator.group_id
+      %td=# link_to 'Edit', edit_group_collaborator_path(group_collaborator)
+      %td= link_to 'Destroy', group_collaborator, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Group collaborator', new_group_collaborator_path

@@ -1,0 +1,10 @@
+%p#notice= notice
+
+%p
+  %b Email:
+  = @group_collaborator.email
+%p
+  %b Name:
+  = @group_collaborator.name
+
+= link_to 'Back', group_collaborators_path

@@ -21,6 +21,21 @@ class SongbooksController < ApplicationController
     end
   end
 
+  
+  def send_email
+    @songbook = Songbook.find(params[:id])
+
+    current_user.group.users.each do |user|
+      UserMailer.send_songbook(@songbook, user).deliver
+    end
+
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js { render :js => "alert('enviado');" }
+    end
+  end
+
   # GET /songbooks/new
   # GET /songbooks/new.json
   def new
