@@ -1,15 +1,18 @@
 
-%p=link_to('On Air', live_presentation_url(@presentation), :class => 'btn btn-danger btn-large')
-
+.col-sm-12
+  .row
+    =link_to('On Air', live_presentation_url(@presentation), :class => 'col-sm-2 btn btn-danger btn-lg')
+    =link_to('Editar', edit_presentation_url(@presentation), :class => 'col-sm-2 btn btn-default btn-lg')
+.clearfix
 
 -@presentation.contents.each do |content|
   .well
     -if content.song
-      =content.song.title
+      %h1=content.song.title
       -diapo = content.song.diapo_mode(true)
       -content.song.order.split(',').each do |verse|
         %h5=verse
         %pre=chordify(diapo[verse.lstrip])
     -else
-      =content.diapo.title
+      %h1=content.diapo.title
       %pre=content.diapo.info

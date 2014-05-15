@@ -1,12 +1,22 @@
-=nested_form_for @presentation do |f|
-  =f.date_select :fecha
-  =f.fields_for :contents do |content|
-    =content.text_field :order
-    =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => 'Song (if needed)'})
-    =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''})
-    =content.link_to_remove "Remove this content"
-  %p=f.link_to_add "Agregar Contenido", :contents
+.col-sm-12
+  =nested_form_for @presentation do |f|
+    .form-group
+      %label.control-label Fecha
+      =f.date_select :fecha, :class => 'form-control'
+
+
+    =f.fields_for :contents, :class => 'form-inline' do |content|
+      .row.form-group
+        .col-sm-1
+          =content.text_field :order, :class => 'form-control'
+        .col-sm-4
+          =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
+        .col-sm-4
+          =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
+        .col-sm-3
+          =content.link_to_remove "Remover"
+    %p=f.link_to_add "Agregar Contenido", :contents
 
 
 
-  =f.submit
+    =f.submit :class => 'btn btn-lg btn-default'

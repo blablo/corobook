@@ -50,7 +50,11 @@ class Song < ActiveRecord::Base
           is_chord = true
           hash[hash_actual] += line if chords
         else
-          hash[hash_actual] += line
+          if chords
+            hash[hash_actual] += line
+          else
+            hash[hash_actual] += line.gsub(/\n/, '<br>') 
+          end
           is_chord = false
         end
       end

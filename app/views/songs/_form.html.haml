@@ -2,14 +2,22 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :title
-    = f.input :author
-    = f.input :lyric, :input_html => { :style => "font-family: lucida console;"}
-    = f.input :user_id
-    = f.input :link
-    = f.input :reference
-    = f.input :mood
-    = f.input :order
+    .form-group
+      =f.input :title, input_html: { class: 'form-control'}
+    .form-group
+      =f.input :author, input_html: { class: 'form-control'}
+    .form-group
+      =f.input :lyric, :input_html => { :style => "font-family: lucida console;", class: 'form-control'}
+    .form-group
+      =f.input :user_id, input_html: { class: 'form-control'}
+    .form-group
+      =f.input :link, input_html: { class: 'form-control'}
+    .form-group
+      =f.input :reference, input_html: { class: 'form-control'}
+    .form-group
+      =f.input :mood, input_html: { class: 'form-control'}
+    .form-group
+      =f.input :order, input_html: { class: 'form-control'}
 
   .form-actions
     = f.button :submit

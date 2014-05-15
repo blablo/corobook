@@ -32,7 +32,7 @@
           -diapo = content.song.diapo_mode
           -content.song.order.split(',').each do |verse|
             %section.slide
-              %h1.verso=diapo[verse.lstrip]
+              %h1.verso=raw diapo[verse.lstrip].gsub('\n','<br>')
         -else
           %section.slide
             %h2=content.diapo.title

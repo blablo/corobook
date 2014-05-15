@@ -18,8 +18,11 @@
   %pre=chordify(@song.lyric)
 
 %p
-  %b Link:
-  = @song.link
+  %b Video:
+  %br
+  -unless @song.link.blank?
+    %iframe{:width => "560", :height => "315", :src => "//www.youtube.com/embed/" + @song.link.scan(/=(.*)$/)[0][0], :frameborder => "0", :allowfullscreen => true}
+
 %p
   %b Order:
   = @song.order

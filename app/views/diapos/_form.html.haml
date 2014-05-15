@@ -1,8 +1,14 @@
 =form_for @diapo do |f|
-  =f.text_field :title
-  %br
-  =f.text_area :info
-  %br
-  =f.file_field :background
-  %br  
-  =f.submit
+  .form-group
+    %label Título
+    =f.text_field :title, :class => 'form-control'
+
+  .form-group
+    %label Información
+    =f.text_area :info, :class => 'form-control'
+
+  .form-group
+    %label Fondo
+    =f.file_field :background, :class => 'form-control'
+
+  =f.submit :class => 'btn btn-lg btn-default'
