@@ -3,7 +3,10 @@
   =f.fields_for :contents do |content|
     =content.text_field :order
     =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => 'Song (if needed)'})
+    =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''})
     =content.link_to_remove "Remove this content"
-  %p=f.link_to_add "Add a content", :contents
+  %p=f.link_to_add "Agregar Contenido", :contents
+
+
 
   =f.submit

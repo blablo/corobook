@@ -26,14 +26,17 @@
       / Begin slides. Just make elements with a class of slide.
 
       -@presentation.contents.each do |content|
-        %section.slide
-          %h1.title=content.song.title
-        -diapo = content.song.diapo_mode
-        -content.song.order.split(',').each do |verse|
+        -if content.song
           %section.slide
-            %h1.verso=diapo[verse.lstrip]
-
-
+            %h1.title=content.song.title
+          -diapo = content.song.diapo_mode
+          -content.song.order.split(',').each do |verse|
+            %section.slide
+              %h1.verso=diapo[verse.lstrip]
+        -else
+          %section.slide
+            %h2=content.diapo.title
+            %pre=content.diapo.info
 
 
       / End slides.

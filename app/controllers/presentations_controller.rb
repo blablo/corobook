@@ -3,11 +3,8 @@ class PresentationsController < ApplicationController
   # GET /presentations
   # GET /presentations.json
   def index
-    @presentations = Presentation.order(:title)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @presentations }
-    end
+    @presentations = Presentation.all
+
   end
 
   # GET /presentations/1

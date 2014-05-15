@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140515010239) do
+ActiveRecord::Schema.define(:version => 20140515051900) do
 
   create_table "contents", :force => true do |t|
     t.integer  "order"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(:version => 20140515010239) do
     t.integer  "presentation_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "diapos", :force => true do |t|
+    t.string   "title"
+    t.text     "info"
+    t.string   "background"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "group_collaborators", :force => true do |t|

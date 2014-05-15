@@ -3,6 +3,7 @@ Corobook::Application.routes.draw do
 
 
   resources :groups
+  resources :diapos
   resources :presentations do 
     member do 
       get :live

@@ -23,7 +23,7 @@ class Song < ActiveRecord::Base
     return clean_lyric
   end
 
-  def diapo_mode
+  def diapo_mode(chords=false)
     versos = self.lyric.scan(/\[.*\]/i)
     hash = { }
     hash_actual = ''
@@ -48,6 +48,7 @@ class Song < ActiveRecord::Base
       else
         if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
           is_chord = true
+          hash[hash_actual] += line if chords
         else
           hash[hash_actual] += line
           is_chord = false
