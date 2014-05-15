@@ -12,7 +12,7 @@
       -diapo = content.song.diapo_mode(true)
       -content.song.order.split(',').each do |verse|
         %h5=verse
-        %pre=chordify(diapo[verse.lstrip])
+        %pre=chordify(diapo[verse.lstrip]) rescue 'a'
     -else
       %h1=content.diapo.title
       %pre=content.diapo.info
