@@ -1,0 +1,7 @@
+
+-@presentation.contents.each do |content|
+  .well
+    =content.song.title
+    -diapo = content.song.diapo_mode
+    -content.song.order.split(',').each do |verse|
+      %pre=diapo[verse.lstrip]

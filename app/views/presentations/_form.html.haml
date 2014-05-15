@@ -1,0 +1,9 @@
+=nested_form_for @presentation do |f|
+  =f.date_select :fecha
+  =f.fields_for :contents do |content|
+    =content.text_field :order
+    =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => 'Song (if needed)'})
+    =content.link_to_remove "Remove this content"
+  %p=f.link_to_add "Add a content", :contents
+
+  =f.submit

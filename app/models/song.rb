@@ -13,7 +13,7 @@ class Song < ActiveRecord::Base
     clean_lyric = ""
     prev_chords = false
     lines.each do |line|
-      if line =~ /\b[CDEFGAB]m?7?\b/ and !prev_chords 
+      if line =~ /\b[CDEFGAB]m?7?\b/ and !prev_chords
         prev_chords = true
       else
         prev_chords = false
@@ -23,9 +23,44 @@ class Song < ActiveRecord::Base
     return clean_lyric
   end
 
+  def diapo_mode
+    versos = self.lyric.scan(/\[.*\]/i)
+    hash = { }
+    hash_actual = ''
+      is_chord = false
+    self.lyric.each_line do |line|
+
+      is_verse = nil
+
+      versos.each do |value|
+
+        if line =~ /\[#{value[1..-2]}\]/
+          is_verse = value[1..-2]
+        end        
+
+      end
+
+
+      if is_verse
+        hash_actual = is_verse
+
+        hash[hash_actual] = ''
+      else
+        if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
+          is_chord = true
+        else
+          hash[hash_actual] += line
+          is_chord = false
+        end
+      end
+
+    end
+    return hash
+  end
+
   def songbooks_ago
     if self.songbooks.empty?
-      return '∞' 
+      return '∞'
     else
       sb = self.songbooks.order('fecha asc').last
       return Songbook.where('fecha > ?', sb.fecha).count
@@ -35,7 +70,7 @@ class Song < ActiveRecord::Base
 
   def cantada_count
     if self.songbooks.empty?
-      return 0 
+      return 0
     else
       sb = self.songbooks.where('fecha > ?', Date.today-2.months)
       return sb.count
@@ -45,10 +80,10 @@ class Song < ActiveRecord::Base
 
   def voted?(user)
     if !Vote.where('user_id = ? and song_id = ?', user.id, self.id).empty?
-      return true 
+      return true
     else
       return false
     end
   end
-    
+
 end

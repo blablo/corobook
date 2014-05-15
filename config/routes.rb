@@ -3,7 +3,11 @@ Corobook::Application.routes.draw do
 
 
   resources :groups
-
+  resources :presentations do 
+    member do 
+      get :live
+    end
+  end
 
   resources :user_groups
 
