@@ -1,0 +1,9 @@
+%h1 Presentaciones
+=link_to('Nueva Presentación', new_presentation_url, :class => 'btn btn-default')
+%br
+%br
+%br
+%ul.list-group
+  -@presentations.each do |pres|
+    %li.list-group-item=link_to(pres.fecha, pres)
+    

@@ -1,0 +1,9 @@
+%h1 Diapositivas
+=link_to('Nueva Diapositiva', new_diapo_url, :class => 'btn btn-default')
+%br
+%br
+%br
+%ul.list-group
+  -@diapos.each do |pres|
+    %li.list-group-item=link_to(pres.title, edit_diapo_url(pres))
+    
