@@ -5,7 +5,8 @@
 
   .form-group
     %label Información
-    =f.text_area :info, :class => 'form-control'
+    =f.cktext_area :info, :cols => 40, :ckeditor => {:uiColor => '#AADC6E', :toolbar => 'mini'}
+
 
   .form-group
     %label Fondo

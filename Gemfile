@@ -31,3 +31,6 @@ gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 gem "debugger", :group => [:development]
 gem "nested_form"
 gem 'carrierwave'
+gem 'rmagick'
+gem "mini_magick"
+gem 'ckeditor'

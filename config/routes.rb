@@ -1,7 +1,8 @@
 Corobook::Application.routes.draw do
+
+  mount Ckeditor::Engine => '/ckeditor'
+
   resources :group_collaborators
-
-
   resources :groups
   resources :diapos
   resources :presentations do 
