@@ -18,7 +18,7 @@ Corobook::Application.configure do
   config.assets.compile = true
 
   # Generate digests for assets URLs
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -46,7 +46,7 @@ Corobook::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-   config.assets.precompile += %w( bootstrap.min.css )
+   config.assets.precompile += %w( bootstrap.min.css ckeditor/config.js ckeditor/skins/mono/editor.css ckeditor/lang/en.js ckeditor/styles.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
