@@ -253,12 +253,12 @@ h6 {
 }
 
 img, iframe, video {
-  display: block;
+/*  display: block;*/
   max-width: 100%;
 }
 
 video, iframe, img {
-  display: block;
+/*  display: block;*/
   margin: 0 auto;
 }
 

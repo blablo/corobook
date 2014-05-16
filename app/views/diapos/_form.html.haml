@@ -2,7 +2,12 @@
   .form-group
     %label Título
     =f.text_field :title, :class => 'form-control'
+    %label
+      =f.check_box :show_title
+      Show title
 
+
+  </div>
   .form-group
     %label Información
     =f.cktext_area :info, :cols => 40, :ckeditor => {:uiColor => '#AADC6E', :toolbar => 'mini'}
