@@ -36,7 +36,8 @@
         -else
           -if content.diapo.background_url.blank?
             %section.slide
-              %h2=content.diapo.title
+              -if content.diapo.show_title
+                %h2=content.diapo.title
               %div=raw content.diapo.info
 
           -else
