@@ -182,6 +182,11 @@ a:link {
 h1 {
   font-size: 4.5em;
 }
+.song-slide h1.title{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
 h1.title{
     color: red;
 }
@@ -296,6 +301,19 @@ li > ol, li > ul {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
+}
+
+.song-slide{
+    background: url(/assets/black.png) no-repeat center center fixed;
+    -webkit-background-size: cover;   
+    -moz-background-size: cover;   
+    -o-background-size: cover;   
+    background-size: cover;
+
+}
+
+.song-slide h1{
+    color: white;
 }
 
 h1 {

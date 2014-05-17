@@ -42,8 +42,11 @@ class Song < ActiveRecord::Base
 
 
       if is_verse
-        hash_actual = is_verse
+        if hash[hash_actual]
+          hash[hash_actual].gsub!(/<br>$/, '')
+        end
 
+        hash_actual = is_verse
         hash[hash_actual] = ''
       else
         if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
@@ -53,7 +56,7 @@ class Song < ActiveRecord::Base
           if chords
             hash[hash_actual] += line
           else
-            hash[hash_actual] += line.gsub(/\n/, '<br>') 
+            hash[hash_actual] += line.gsub(/\n/, '<br>')
           end
           is_chord = false
         end

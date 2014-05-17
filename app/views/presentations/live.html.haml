@@ -25,13 +25,13 @@
     .deck-container
       / Begin slides. Just make elements with a class of slide.
 
-      -@presentation.contents.each do |content|
+      -@presentation.contents.order('`order` asc').each do |content|
         -if content.song
-          %section.slide
+          %section.slide.song-slide
             %h1.title=content.song.title
           -diapo = content.song.diapo_mode
           -content.song.order.split(',').each do |verse|
-            %section.slide
+            %section.slide.song-slide
               %h1.verso=raw diapo[verse.lstrip].gsub('\n','<br>')
         -else
           -if content.diapo.background_url.blank?
@@ -41,7 +41,7 @@
               %div=raw content.diapo.info
 
           -else
-            %section.slide{:style => "background: url(#{content.diapo.background}) no-repeat center center fixed;); -webkit-background-size: cover;   -moz-background-size: cover;   -o-background-size: cover;   background-size: cover;"}
+            %section.slide{:style => "background: url(#{content.diapo.background}) no-repeat center center fixed; -webkit-background-size: cover;   -moz-background-size: cover;   -o-background-size: cover;   background-size: cover;"}
               -if content.diapo.show_title
                 %h2=content.diapo.title
               %div=raw content.diapo.info
