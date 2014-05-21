@@ -1,23 +1,30 @@
-= simple_form_for(@song) do |f|
-  = f.error_notification
+.col-sm-12
+  = simple_form_for(@song) do |f|
+    .form-inputs
+      .form-group
+        =f.input :title, input_html: { class: 'form-control'}
+      .row
+        .col-sm-12
+          .row
+            .col-sm-6
 
-  .form-inputs
-    .form-group
-      =f.input :title, input_html: { class: 'form-control'}
-    .form-group
-      =f.input :author, input_html: { class: 'form-control'}
-    .form-group
-      =f.input :lyric, :input_html => { :style => "font-family: lucida console;", class: 'form-control'}
-    .form-group
-      =f.input :user_id, input_html: { class: 'form-control'}
-    .form-group
-      =f.input :link, input_html: { class: 'form-control'}
-    .form-group
-      =f.input :reference, input_html: { class: 'form-control'}
-    .form-group
-      =f.input :mood, input_html: { class: 'form-control'}
-    .form-group
-      =f.input :order, input_html: { class: 'form-control'}
+              .form-group
+                =f.input :author, input_html: { class: 'form-control'}
 
-  .form-actions
-    = f.button :submit
+            .col-sm-6
+              .form-group
+                =f.input :reference, input_html: { class: 'form-control'}, label: 'Referencia Bíblica'
+
+      .form-group
+        =f.input :mood, collection: [['Alegre', 30], ['Intermedia', 20],['Tranquila']], prompt: "Select your age", input_html: { class: 'form-control'}, label: 'Rítmo'
+
+      .form-group
+        =f.input :lyric, :input_html => { :style => "font-family: lucida console;", class: 'form-control'}
+      .form-group
+        =f.input :order, input_html: { class: 'form-control'}
+
+      .form-group
+        =f.input :link, input_html: { class: 'form-control'}
+
+    .form-actions
+      = f.button :submit, input_html: { class: 'btn btn-default'}

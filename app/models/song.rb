@@ -5,6 +5,10 @@ class Song < ActiveRecord::Base
   has_many :songbooks, :through => :songbook_songs
   has_many :votes
 
+  validates :title, presence: true
+  validates :lyric, presence: true
+  validates :order, presence: true
+
   def in_songbook?(sbid)
     !self.songbook_songs.where('songbook_id = ?', sbid).empty?
   end
@@ -46,7 +50,7 @@ class Song < ActiveRecord::Base
           hash[hash_actual].gsub!(/<br>$/, '')
         end
 
-        hash_actual = is_verse
+        hash_actual = is_verse.upcase
         hash[hash_actual] = ''
       else
         if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord

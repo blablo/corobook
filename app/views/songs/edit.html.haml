@@ -1,7 +1,9 @@
-%h1 Editing song
+%h1 Editar Canción
+.row
+  .col-sm-12
+    =render 'form'
 
-= render 'form'
-
-= link_to 'Show', @song
+%hr 
+=link_to 'Ver', @song
 \|
-= link_to 'Back', songs_path
+=link_to 'Regresar', songs_path, :class => 'btn btn-default'

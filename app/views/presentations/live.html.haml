@@ -31,8 +31,9 @@
             %h1.title=content.song.title
           -diapo = content.song.diapo_mode
           -content.song.order.split(',').each do |verse|
-            %section.slide.song-slide
-              %h1.verso=raw diapo[verse.lstrip].gsub('\n','<br>')
+            -if !diapo[verse.upcase.lstrip].blank?
+              %section.slide.song-slide
+                %h1.verso=raw(diapo[verse.upcase.lstrip].gsub('\n','<br>'))
         -else
           -if content.diapo.background_url.blank?
             %section.slide

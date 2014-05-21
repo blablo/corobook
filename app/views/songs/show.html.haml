@@ -17,6 +17,14 @@
   %b Lyric:
   %pre=chordify(@song.lyric)
 
+.well
+  %h1=@song.title
+  -diapo = @song.diapo_mode(true)
+  -@song.order.split(',').each do |verse|
+    %h5=verse
+    %pre=chordify(diapo[verse.upcase.lstrip]) rescue diapo
+
+
 %p
   %b Video:
   %br

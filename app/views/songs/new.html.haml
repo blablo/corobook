@@ -1,5 +1,7 @@
-%h1 New song
+%h1 Nueva Canción
+.row
+  .col-sm-12
+    =render 'form'
 
-= render 'form'
-
-= link_to 'Back', songs_path
+%hr
+=link_to 'Regresar', songs_path, :class => 'btn btn-default'
