@@ -34,3 +34,5 @@ gem 'carrierwave'
 gem 'rmagick'
 gem "mini_magick"
 gem 'ckeditor'
+gem "acts_as_list"
+gem 'jquery-ui-rails'

@@ -25,7 +25,7 @@
     .deck-container
       / Begin slides. Just make elements with a class of slide.
 
-      -@presentation.contents.order('`order` asc').each do |content|
+      -@presentation.contents.order('position asc').each do |content|
         -if content.song
           %section.slide.song-slide
             %h1.title=content.song.title

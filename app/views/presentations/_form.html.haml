@@ -4,19 +4,21 @@
       %label.control-label Fecha
       =f.date_select :fecha, :class => 'form-control'
 
+    .well
+      %ul#sortable.list-group
+        =f.fields_for :contents, :wrapper => false, :class => 'form-inline' do |content|
+          %li.content.list-group-item.ui-state-default
+            .row
+              .col-sm-1
+                =content.text_field :position, :class => 'form-control order'
+              .col-sm-4
+                =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
+              .col-sm-4
+                =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
+              .col-sm-3
+                =content.link_to_remove "Remover"
+      %p=f.link_to_add "Agregar Contenido", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position()'
 
-    =f.fields_for :contents, :class => 'form-inline' do |content|
-      .row.form-group
-        .col-sm-1
-          =content.text_field :order, :class => 'form-control'
-        .col-sm-4
-          =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
-        .col-sm-4
-          =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
-        .col-sm-3
-          =content.link_to_remove "Remover"
-    %p=f.link_to_add "Agregar Contenido", :contents
 
 
-
-    =f.submit :class => 'btn btn-lg btn-default'
+    =f.submit 'Actualizar Presentación', :class => 'btn btn-lg btn-primary'

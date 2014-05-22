@@ -5,7 +5,7 @@
     =link_to('Editar', edit_presentation_url(@presentation), :class => 'col-sm-2 btn btn-default btn-lg')
 .clearfix
 
--@presentation.contents.each do |content|
+-@presentation.contents.order('position asc').each do |content|
   .well
     -if content.song
       %h1=content.song.title
