@@ -20,6 +20,8 @@
     / Basic black and white print styles
     %link{href: "/core/print.css", media: "print", rel: "stylesheet"}/
     / Required Modernizr file
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.17.1/build/cssreset-context/cssreset-context.css" type="text/css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     %script{src: "/modernizr.custom.js"}
   %body
     .deck-container
@@ -39,13 +41,13 @@
             %section.slide
               -if content.diapo.show_title
                 %h2=content.diapo.title
-              %div=raw content.diapo.info
+              %div.yui3-cssreset=raw content.diapo.info
 
           -else
             %section.slide{:style => "background: url(#{content.diapo.background}) no-repeat center center fixed; -webkit-background-size: cover;   -moz-background-size: cover;   -o-background-size: cover;   background-size: cover;"}
               -if content.diapo.show_title
                 %h2=content.diapo.title
-              %div=raw content.diapo.info
+              %div.yui3-cssreset=raw content.diapo.info
 
 
     / End slides.
@@ -67,7 +69,7 @@
       %input{type: "submit", value: "Go"}/
     / End extension snippets.
   / Required JS files.
-  %script{src: "/jquery.min.js"}
+
   %script{src: "/core/deck.core.js"}
   / Extension JS files. Add or remove as needed.
   %script{src: "/extensions/menu/deck.menu.js"}

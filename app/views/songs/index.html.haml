@@ -38,7 +38,7 @@
 
       %td
         -if current_user and current_user.role >= 3
-          =link_to 'Edit', edit_song_path(song) if can? :update, song
+          =link_to 'Edit', edit_song_path(song)
         -if current_user and current_user.is_admin?
           =link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' }
 

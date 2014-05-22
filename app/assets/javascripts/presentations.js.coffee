@@ -6,11 +6,16 @@ $(document).ready ->
   update_position()           
   $('#sortable').sortable(
     axis: 'y'
-    items: '.content'
+    items: '.fields'
     update: (e, ui) ->
       update_position()
 
   )
+  $('.song select').selectize()
+  $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+  $( "#presentation_fecha" ).datepicker();
+
+@content_type = "song"
 
 @update_position = update_position = ()->
   $("li.list-group-item").each (index) ->
@@ -20,5 +25,12 @@ $(document).ready ->
 
 $(document).on "nested:fieldAdded", (event) ->
   update_position()  
-
+  field = event.field
+  if content_type is 'song'
+    field.find('.diapo').hide()
+    field.find('.song').show()
+    field.find('select').selectize()
+  else
+    field.find('.song').hide()
+    field.find('.diapo').show()
   return

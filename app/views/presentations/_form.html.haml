@@ -1,23 +1,27 @@
-.col-sm-12
+.col-xs-12
   =nested_form_for @presentation do |f|
     .form-group
       %label.control-label Fecha
-      =f.date_select :fecha, :class => 'form-control'
+      =f.text_field :fecha, :class => 'form-control'
 
     .well
       %ul#sortable.list-group
-        =f.fields_for :contents, :wrapper => false, :class => 'form-inline' do |content|
+        =f.fields_for :contents, :wrapper => 'a', :class => 'form-inline' do |content|
           %li.content.list-group-item.ui-state-default
             .row
-              .col-sm-1
+              .col-xs-1
                 =content.text_field :position, :class => 'form-control order'
-              .col-sm-4
-                =content.collection_select(:song_id, Song.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
-              .col-sm-4
+              .col-xs-4.song{:style => content.object.song_id ? '' : 'display: none'}
+                =content.collection_select(:song_id, Song.order('title asc'), :id, :title, {:include_blank => ''}, :class => 'form-control')
+
+
+              .col-xs-4.diapo{:style => content.object.diapo_id ? '' : 'display: none'}
                 =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
-              .col-sm-3
+              .col-xs-3
                 =content.link_to_remove "Remover"
-      %p=f.link_to_add "Agregar Contenido", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position()'
+
+      =f.link_to_add "Agregar Diapositiva", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position(); content_type="diapo";'
+      =f.link_to_add "Agregar Canción", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position(); content_type="song";'
 
 
 
