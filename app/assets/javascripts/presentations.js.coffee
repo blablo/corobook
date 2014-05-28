@@ -33,5 +33,6 @@ $(document).on "nested:fieldAdded", (event) ->
     field.find('select').selectize()
   else
     field.find('.song').hide()
+    field.find('li').removeClass('song-row')
     field.find('.diapo').show()
   return
