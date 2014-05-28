@@ -28,6 +28,7 @@ $(document).on "nested:fieldAdded", (event) ->
   field = event.field
   if content_type is 'song'
     field.find('.diapo').hide()
+    field.find('li').addClass('song-row')
     field.find('.song').show()
     field.find('select').selectize()
   else

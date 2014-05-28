@@ -1,0 +1,15 @@
+.song-row{
+    background: lighten(#3276B1,20);
+    border-color: #666;
+    color: white;
+
+    a{
+	color: white;
+    }
+}
+
+#sortable{
+    li.list-group-item{
+	border-radius: 0;
+    }
+}
