@@ -5,5 +5,5 @@
 %br
 %ul.list-group
   -@presentations.each do |pres|
-    %li.list-group-item=link_to(pres.fecha, pres)
+    %li.list-group-item=link_to(pres.fecha.strftime('%d/%m/%Y'), pres)
     

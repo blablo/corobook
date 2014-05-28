@@ -41,13 +41,13 @@
             %section.slide
               -if content.diapo.show_title
                 %h2=content.diapo.title
-              %div.yui3-cssreset=raw content.diapo.info
+              %div=raw content.diapo.info
 
           -else
             %section.slide{:style => "background: url(#{content.diapo.background}) no-repeat center center fixed; -webkit-background-size: cover;   -moz-background-size: cover;   -o-background-size: cover;   background-size: cover;"}
               -if content.diapo.show_title
                 %h2=content.diapo.title
-              %div.yui3-cssreset=raw content.diapo.info
+              %div=raw content.diapo.info
 
 
     / End slides.

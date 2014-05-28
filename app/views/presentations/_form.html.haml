@@ -4,24 +4,25 @@
       %label.control-label Fecha
       =f.text_field :fecha, :class => 'form-control'
 
-    .well
-      %ul#sortable.list-group
-        =f.fields_for :contents, :wrapper => 'a', :class => 'form-inline' do |content|
-          %li.content.list-group-item.ui-state-default
-            .row
-              .col-xs-1
-                =content.text_field :position, :class => 'form-control order'
-              .col-xs-4.song{:style => content.object.song_id ? '' : 'display: none'}
-                =content.collection_select(:song_id, Song.order('title asc'), :id, :title, {:include_blank => ''}, :class => 'form-control')
+
+    %ul#sortable.list-group.col-xs-11
+      =f.fields_for :contents, :wrapper => 'a', :class => 'form-inline' do |content|
+        %li.list-group-item
+          .row
+            .col-xs-1
+              <span class="glyphicon glyphicon-sort"></span>
+            =content.hidden_field :position, :class => 'form-control order'
+            .col-xs-10.col-sm-8.song{:style => content.object.song_id ? '' : 'display: none'}
+              =content.collection_select(:song_id, Song.order('title asc'), :id, :title, {:include_blank => ''}, :class => 'form-control')
 
 
-              .col-xs-4.diapo{:style => content.object.diapo_id ? '' : 'display: none'}
-                =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
-              .col-xs-3
-                =content.link_to_remove "Remover"
+            .col-xs-10.col-sm-8.diapo{:style => content.object.diapo_id ? '' : 'display: none'}
+              =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
+            .col-sm-3.col-xs-12
+              =content.link_to_remove "Remover"
 
-      =f.link_to_add "Agregar Diapositiva", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position(); content_type="diapo";'
-      =f.link_to_add "Agregar Canción", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position(); content_type="song";'
+    =f.link_to_add "Agregar Diapositiva", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position(); content_type="diapo";'
+    =f.link_to_add "Agregar Canción", :contents, "data-target" => "#sortable", :class => 'btn btn-lg btn-default', :onclick => 'update_position(); content_type="song";'
 
 
 
