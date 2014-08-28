@@ -69,7 +69,7 @@ class PresentationsController < ApplicationController
 
     respond_to do |format|
       if @presentation.update_attributes(params[:presentation])
-        format.html { redirect_to edit_presentation_url @presentation, notice: 'Presentation was successfully updated.' }
+        format.html { redirect_to @presentation, notice: 'Presentation was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
