@@ -19,7 +19,7 @@ $(document).ready ->
 
 @update_position = update_position = ()->
   $("li.list-group-item").each (index) ->
-    $(this).find(".order").val(index)
+    $(this).find(".order").val(index+1)
     return
   return
 
