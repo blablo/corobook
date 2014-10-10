@@ -3,7 +3,8 @@
 %br
 %br
 %br
-%ul.list-group
+%table.table.table-bordered.table-hover.table-striped
   -@diapos.each do |pres|
-    %li.list-group-item=link_to(pres.title, edit_diapo_url(pres))
-    
+    %tr
+      %td=link_to(pres.title, edit_diapo_url(pres))
+      %td=link_to 'Eliminar', pres, method: :delete, data: { confirm: 'Are you sure?' }    

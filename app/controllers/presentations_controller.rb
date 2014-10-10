@@ -66,7 +66,6 @@ class PresentationsController < ApplicationController
   def update
     @presentation = Presentation.find(params[:id])
 
-
     respond_to do |format|
       if @presentation.update_attributes(params[:presentation])
         format.html { redirect_to @presentation, notice: 'Presentation was successfully updated.' }

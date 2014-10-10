@@ -8,6 +8,23 @@ class Song < ActiveRecord::Base
   validates :title, presence: true
   validates :lyric, presence: true
   validates :order, presence: true
+  validate :validate_sintax
+
+  def validate_sintax
+    if self.lyric.scan(/\[.*\]/i).blank?
+      errors.add(:order, "No se encontraron versos en el texto. Ej: [CORO] ")
+    end
+    
+  end
+
+ 
+  def expiration_date_cannot_be_in_the_past
+    if expiration_date.present? && expiration_date < Date.today
+      errors.add(:expiration_date, "can't be in the past")
+    end
+  end
+
+
 
   def in_songbook?(sbid)
     !self.songbook_songs.where('songbook_id = ?', sbid).empty?
@@ -31,41 +48,44 @@ class Song < ActiveRecord::Base
     versos = self.lyric.scan(/\[.*\]/i)
     hash = { }
     hash_actual = ''
-      is_chord = false
-    self.lyric.each_line do |line|
+    is_chord = false
+    if !versos.blank?
 
-      is_verse = nil
+      self.lyric.each_line do |line|
 
-      versos.each do |value|
+        is_verse = nil
 
-        if line =~ /\[#{value[1..-2]}\]/
-          is_verse = value[1..-2]
-        end        
+        versos.each do |value|
 
-      end
-
-
-      if is_verse
-        if hash[hash_actual]
-          hash[hash_actual].gsub!(/<br>$/, '')
-        end
-
-        hash_actual = is_verse.upcase
-        hash[hash_actual] = ''
-      else
-        if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
-          is_chord = true
-          hash[hash_actual] += line if chords
-        else
-          if chords
-            hash[hash_actual] += line
-          else
-            hash[hash_actual] += line.gsub(/\n/, '<br>')
+          if line =~ /\[#{value[1..-2]}\]/
+            is_verse = value[1..-2]
           end
-          is_chord = false
-        end
-      end
 
+        end
+
+
+        if is_verse
+          if hash[hash_actual]
+            hash[hash_actual].gsub!(/<br>$/, '')
+          end
+
+          hash_actual = is_verse.upcase
+          hash[hash_actual] = ''
+        else
+          if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
+            is_chord = true
+            hash[hash_actual] += line if chords
+          else
+            if chords
+              hash[hash_actual] += line
+            else
+              hash[hash_actual] += line.gsub(/\n/, '<br>')
+            end
+            is_chord = false
+          end
+        end
+
+      end
     end
     return hash
   end

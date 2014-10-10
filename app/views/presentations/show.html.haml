@@ -10,9 +10,13 @@
     -if content.song
       %h1=content.song.title
       -diapo = content.song.diapo_mode(true)
-      -content.song.order.split(',').each do |verse|
-        %h5=verse
-        %pre=chordify(diapo[verse.upcase.lstrip]) rescue 'a'
+      -if !content.song.order.blank?
+        -content.song.order.split(',').each do |verse|
+          %h5=verse
+          %pre=chordify(diapo[verse.upcase.lstrip]) rescue 'a'
+      -else
+        Le falta el orden de los versos..
+        =link_to("Editar", edit_song_url(content.song))
     -else
       %h1=content.diapo.title
       %pre=content.diapo.info

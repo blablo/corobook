@@ -14,6 +14,8 @@ $(document).ready ->
   $('.song select').selectize()
   $.fn.datepicker.defaults.format = "yyyy-mm-dd";
   $( "#presentation_fecha" ).datepicker();
+  $(".presentations pre").fitText(2.5, {maxFontSize: '14px'});
+
 
 @content_type = "song"
 
