@@ -22,6 +22,16 @@ class SongsController < ApplicationController
     end
   end
 
+  def live
+    @song = Song.find(params[:id])
+
+    respond_to do |format|
+      format.html { render :layout => false } # show.html.erb
+      format.json { render json: @song }
+    end
+  end
+
+
   # GET /songs/new
   # GET /songs/new.json
   def new

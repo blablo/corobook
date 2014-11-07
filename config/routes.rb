@@ -22,6 +22,10 @@ Corobook::Application.routes.draw do
 
 
   resources :songs do
+    member do 
+      get :live
+    end
+
     collection do
       get :vote_add
       get :songbook_add

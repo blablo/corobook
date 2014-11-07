@@ -17,13 +17,17 @@
       %td=song.reference
       %td=song.mood
 
-
+      
 
       %td
+        -if song.valid?
+          =link_to(raw('<span class="glyphicon glyphicon-fullscreen"></span>'), live_song_url(song), :class => 'btn btn-default ')
+    
         -if current_user and current_user.role >= 3
-          =link_to 'Editar', edit_song_path(song)
-        -if current_user and current_user.is_admin?
-          =link_to 'Eliminar', song, method: :delete, data: { confirm: 'Are you sure?' }
+          =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(song), :class => 'btn btn-default ')
+        -if current_user 
+          =link_to(raw('<span class="glyphicon glyphicon-trash"></span>'), song, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default ')
+
 
 %br
 
