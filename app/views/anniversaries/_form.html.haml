@@ -1,0 +1,11 @@
+= simple_form_for(@anniversary) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :date
+    = f.input :name
+    = f.input :category, collection: ['birthday', 'wedding', 'other']
+
+
+  .form-actions
+    = f.button :submit

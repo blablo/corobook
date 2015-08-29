@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Songs background:
+  = @setting.songs_background
+%p
+  %b Songs case:
+  = @setting.songs_case
+%p
+  %b Church:
+  = @setting.church_id
+
+= link_to 'Edit', edit_setting_path(@setting)
+\|
+= link_to 'Back', settings_path

@@ -1,5 +1,11 @@
 Corobook::Application.routes.draw do
 
+  resources :anniversaries
+
+
+  resources :settings
+
+
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :group_collaborators

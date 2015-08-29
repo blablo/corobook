@@ -19,8 +19,27 @@
     %link{href: "/themes/transition/fade.css", media: "screen", rel: "stylesheet"}/
     / Basic black and white print styles
     %link{href: "/core/print.css", media: "print", rel: "stylesheet"}/
+    <link href='https://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+
+    =stylesheet_link_tag 'live'
+
     / Required Modernizr file
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.17.1/build/cssreset-context/cssreset-context.css" type="text/css">
+
+    :css
+      .song-slide {
+        background: url(#{current_church.settings.first.songs_background});
+        background-size: cover;
+      }  
+      .song-slide h1 {
+        color: #{current_church.settings.first.songs_font_color};
+        text-transform: #{current_church.settings.first.songs_case};
+      } 
+      #anniversaries {
+        background: url(#{current_church.settings.first.anniversaries_background});
+        background-size: cover;        
+      }
+
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     %script{src: "/modernizr.custom.js"}
     = javascript_include_tag "jquery.fittext"
@@ -35,16 +54,27 @@
           %section.slide.song-slide
             %h1.title=content.song.title
           -diapo = content.song.diapo_mode
+
           -content.song.order.split(',').each do |verse|
             -if !diapo[verse.upcase.lstrip].blank?
               %section.slide.song-slide
                 %h1.verso=raw(diapo[verse.upcase.lstrip].gsub('\n','<br>'))
         -else
           -if content.diapo.background_url.blank?
-            %section.slide
-              -if content.diapo.show_title
-                %h2=content.diapo.title
-              %div=raw content.diapo.info
+
+            -if content.diapo.title == 'anniversaries'
+              %section.slide#anniversaries
+                %h2 Felicidades
+                .well
+                  -@anniversaries.each do |ann|
+                    .dato=ann.date.strftime('%d/%m')
+                    .dato=ann.name
+                    .dato.icon=image_tag('icons/' + ann.category + '/' + (rand(3)+1).to_s + '.png')
+            -else
+              %section.slide
+                -if content.diapo.show_title
+                  %h2=content.diapo.title
+                %div=raw content.diapo.info
 
           -else
             %section.slide{:style => "background: url(#{content.diapo.background}) no-repeat center center fixed; -webkit-background-size: cover;   -moz-background-size: cover;   -o-background-size: cover;   background-size: cover;"}

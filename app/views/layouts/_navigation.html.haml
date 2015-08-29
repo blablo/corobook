@@ -6,11 +6,14 @@
 
   - if user_signed_in?
     %li
-      = link_to 'Songbooks', songbooks_path
-    %li
       = link_to 'Presentaciones', presentations_path
     %li
       = link_to 'Diapositivas', diapos_path
+    %li
+      = link_to 'Aniversarios', anniversaries_path
+
+    %li
+      = link_to 'Preferencias', settings_path
     %li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
   - else

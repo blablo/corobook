@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140522060155) do
+ActiveRecord::Schema.define(:version => 20150828221037) do
+
+  create_table "anniversaries", :force => true do |t|
+    t.datetime "date"
+    t.string   "name"
+    t.string   "category"
+    t.string   "church_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "anniversaries", ["church_id"], :name => "index_anniversaries_on_church_id"
+
+  create_table "churches", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -46,7 +63,10 @@ ActiveRecord::Schema.define(:version => 20140522060155) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "show_title"
+    t.integer  "church_id"
   end
+
+  add_index "diapos", ["church_id"], :name => "index_diapos_on_church_id"
 
   create_table "group_collaborators", :force => true do |t|
     t.string   "email"
@@ -69,7 +89,10 @@ ActiveRecord::Schema.define(:version => 20140522060155) do
     t.datetime "fecha"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "church_id"
   end
+
+  add_index "presentations", ["church_id"], :name => "index_presentations_on_church_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -81,6 +104,19 @@ ActiveRecord::Schema.define(:version => 20140522060155) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "settings", :force => true do |t|
+    t.string   "songs_background"
+    t.string   "songs_case",               :default => "none"
+    t.string   "church_id"
+    t.string   "songs_font_color",         :default => "#FFFFFF"
+    t.string   "presentation_template"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.string   "anniversaries_background"
+  end
+
+  add_index "settings", ["church_id"], :name => "index_settings_on_church_id"
 
   create_table "songbook_songs", :force => true do |t|
     t.integer  "song_id"
@@ -95,7 +131,10 @@ ActiveRecord::Schema.define(:version => 20140522060155) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.date     "fecha"
+    t.integer  "church_id"
   end
+
+  add_index "songbooks", ["church_id"], :name => "index_songbooks_on_church_id"
 
   create_table "songs", :force => true do |t|
     t.string   "title"
@@ -108,7 +147,10 @@ ActiveRecord::Schema.define(:version => 20140522060155) do
     t.string   "reference"
     t.integer  "mood"
     t.string   "order"
+    t.integer  "church_id"
   end
+
+  add_index "songs", ["church_id"], :name => "index_songs_on_church_id"
 
   create_table "user_groups", :force => true do |t|
     t.integer  "user_id"
@@ -134,8 +176,10 @@ ActiveRecord::Schema.define(:version => 20140522060155) do
     t.string   "name"
     t.integer  "group_id"
     t.integer  "role",                   :default => 0
+    t.integer  "church_id"
   end
 
+  add_index "users", ["church_id"], :name => "index_users_on_church_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

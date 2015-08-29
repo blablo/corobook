@@ -14,10 +14,10 @@ class Song < ActiveRecord::Base
     if self.lyric.scan(/\[.*\]/i).blank?
       errors.add(:order, "No se encontraron versos en el texto. Ej: [CORO] ")
     end
-    
+
   end
 
- 
+
   def expiration_date_cannot_be_in_the_past
     if expiration_date.present? && expiration_date < Date.today
       errors.add(:expiration_date, "can't be in the past")
@@ -43,6 +43,56 @@ class Song < ActiveRecord::Base
     end
     return clean_lyric
   end
+  # \b[CDEFGAB](?:#{1,2}|b{1,2})?(?:7?|m7?|sus2?)\b
+
+  def hashed_lyric(show_chords = false)
+    hash = { }
+    actual_verse = ""
+
+    self.lyric.each_line do |line|
+
+      if line =~ /\[.*]/
+        actual_verse = line.scan(/\[(.*)\]/i)[0][0]
+        hash[actual_verse] = []
+      else
+        #        if line =~ /\b[CDEFGAB]m?7?\b/
+        unless line.gsub(/\r\n/, '').blank?
+          if (line.scan(/\b[CDEFGAB.\/-](?:#\{1,2\}|b{1,2})?(?:7?|m7?|sus2?)\b/).join.size == line.gsub(/\s/, '').size)
+            hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :chords} if show_chords
+          else
+            hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :text}
+          end
+        end
+      end
+
+    end
+
+    return hash
+  end
+
+  def sorted_array_lyric(show_chords = false)
+    hl = self.hashed_lyric(show_chords)
+    array = []
+    order = order_list
+    order.each_with_index do |verse, index|
+      if order[index] == order[index-1]
+        tmp_verse = Marshal.load( Marshal.dump( hl[verse] ) )
+        show_chords ? hl[verse].second[:line].prepend('/') : hl[verse].first[:line].prepend('/')
+        hl[verse].last[:line] += '/'
+        array[array.count-1] = { verse => hl[verse]}
+        hl[verse] = tmp_verse
+      else
+        array << { verse => hl[verse]}
+      end
+    end
+
+    return array
+  end
+
+  def order_list
+    self.order.gsub(', ', ',').split(',')
+  end
+
 
   def diapo_mode(chords=false)
     versos = self.lyric.scan(/\[.*\]/i)
@@ -63,7 +113,6 @@ class Song < ActiveRecord::Base
 
         end
 
-
         if is_verse
           if hash[hash_actual]
             hash[hash_actual].gsub!(/<br>$/, '')
@@ -71,6 +120,7 @@ class Song < ActiveRecord::Base
 
           hash_actual = is_verse.upcase
           hash[hash_actual] = ''
+
         else
           if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
             is_chord = true

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Date:
+  = @anniversary.date
+%p
+  %b Name:
+  = @anniversary.name
+%p
+  %b Category:
+  = @anniversary.category
+%p
+  %b Church:
+  = @anniversary.church_id
+
+= link_to 'Edit', edit_anniversary_path(@anniversary)
+\|
+= link_to 'Back', anniversaries_path

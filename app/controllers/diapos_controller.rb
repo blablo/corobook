@@ -4,7 +4,7 @@ class DiaposController < ApplicationController
   # GET /diapos
   # GET /diapos.json
   def index
-    @diapos = Diapo.order(:title)
+    @diapos = current_church.diapos.order(:title)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @diapos }
@@ -14,7 +14,7 @@ class DiaposController < ApplicationController
   # GET /diapos/1
   # GET /diapos/1.json
   def show
-    @diapo = Diapo.find(params[:id])
+    @diapo = current_church.diapos.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,7 +26,7 @@ class DiaposController < ApplicationController
   # GET /diapos/new
   # GET /diapos/new.json
   def new
-    @diapo = Diapo.new
+    @diapo = current_church.diapos.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,13 +36,13 @@ class DiaposController < ApplicationController
 
   # GET /diapos/1/edit
   def edit
-    @diapo = Diapo.find(params[:id])
+    @diapo = current_church.diapos.find(params[:id])
   end
 
   # POST /diapos
   # POST /diapos.json
   def create
-    @diapo = Diapo.new(params[:diapo])
+    @diapo = current_church.diapos.build(params[:diapo])
 
     respond_to do |format|
       if @diapo.save
@@ -58,7 +58,7 @@ class DiaposController < ApplicationController
   # PUT /diapos/1
   # PUT /diapos/1.json
   def update
-    @diapo = Diapo.find(params[:id])
+    @diapo = current_church.diapos.find(params[:id])
 
     respond_to do |format|
       if @diapo.update_attributes(params[:diapo])
@@ -74,7 +74,7 @@ class DiaposController < ApplicationController
   # DELETE /diapos/1
   # DELETE /diapos/1.json
   def destroy
-    @diapo = Diapo.find(params[:id])
+    @diapo = current_church.diapos.find(params[:id])
     @diapo.destroy
 
     respond_to do |format|

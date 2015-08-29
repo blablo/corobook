@@ -16,12 +16,12 @@
 
 .well
   %h1=@song.title
-  -diapo = @song.diapo_mode(true)
+  -diapo = @song.sorted_array_lyric(true)
+  
   -if !@song.order.blank?
-    -@song.order.split(',').each do |verse|
-      %h5=verse
-      %pre=chordify(diapo[verse.upcase.lstrip]) rescue diapo
-
+    -diapo.each do |verse|
+      %h5=verse.keys[0]
+      %pre=chordify2(verse.values[0]) 
 
 %p
   %b Video:

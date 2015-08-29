@@ -21,8 +21,13 @@
     %link{href: "/core/print.css", media: "print", rel: "stylesheet"}/
     / Required Modernizr file
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.17.1/build/cssreset-context/cssreset-context.css" type="text/css">
+
+    =stylesheet_link_tag "application"
+
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     %script{src: "/modernizr.custom.js"}
+
+
     = javascript_include_tag "jquery.fittext"
     = javascript_include_tag "live"
 
@@ -33,11 +38,11 @@
 
       %section.slide.song-slide
         %h1.title=@song.title
-      -diapo = @song.diapo_mode
-      -@song.order.split(',').each do |verse|
-        -if !diapo[verse.upcase.lstrip].blank?
+      -diapo = @song.sorted_array_lyric
+      -diapo.each do |verse|
+        -unless verse.values.nil? or verse.values[0].blank?
           %section.slide.song-slide
-            %h1.verso=raw(diapo[verse.upcase.lstrip].gsub('\n','<br>'))
+            %h1.verso=format_verse_diapo(verse.values[0])
 
 
     / End slides.

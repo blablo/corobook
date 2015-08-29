@@ -3,14 +3,14 @@ class PresentationsController < ApplicationController
   # GET /presentations
   # GET /presentations.json
   def index
-    @presentations = Presentation.order('fecha desc')
+    @presentations = current_church.presentations.order('fecha desc')
 
   end
 
   # GET /presentations/1
   # GET /presentations/1.json
   def show
-    @presentation = Presentation.find(params[:id])
+    @presentation = current_church.presentations.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,7 +21,8 @@ class PresentationsController < ApplicationController
   # GET /presentations/1
   # GET /presentations/1.json
   def live
-    @presentation = Presentation.find(params[:id])
+    @presentation = current_church.presentations.find(params[:id])
+    @anniversaries = current_church.anniversaries
 
     respond_to do |format|
       format.html { render :layout => false } # show.html.erb
@@ -32,7 +33,8 @@ class PresentationsController < ApplicationController
   # GET /presentations/new
   # GET /presentations/new.json
   def new
-    @presentation = Presentation.new
+    @presentation = current_church.presentations.build
+    @presentation.load_template
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,13 +44,13 @@ class PresentationsController < ApplicationController
 
   # GET /presentations/1/edit
   def edit
-    @presentation = Presentation.find(params[:id])
+    @presentation = current_church.presentations.find(params[:id])
   end
 
   # POST /presentations
   # POST /presentations.json
   def create
-    @presentation = Presentation.new(params[:presentation])
+    @presentation = current_church.presentations.build(params[:presentation])
 
     respond_to do |format|
       if @presentation.save
@@ -64,7 +66,7 @@ class PresentationsController < ApplicationController
   # PUT /presentations/1
   # PUT /presentations/1.json
   def update
-    @presentation = Presentation.find(params[:id])
+    @presentation = current_church.presentations.find(params[:id])
 
     respond_to do |format|
       if @presentation.update_attributes(params[:presentation])
@@ -80,7 +82,7 @@ class PresentationsController < ApplicationController
   # DELETE /presentations/1
   # DELETE /presentations/1.json
   def destroy
-    @presentation = Presentation.find(params[:id])
+    @presentation = current_church.presentations.find(params[:id])
     @presentation.destroy
 
     respond_to do |format|
