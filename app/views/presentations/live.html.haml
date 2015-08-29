@@ -67,9 +67,10 @@
                 %h2 Felicidades
                 .well
                   -@anniversaries.each do |ann|
-                    .dato=ann.date.strftime('%d/%m')
-                    .dato=ann.name
-                    .dato.icon=image_tag('icons/' + ann.category + '/' + (rand(3)+1).to_s + '.png')
+                    .row
+                      .dato=ann.date.strftime('%d/%m')
+                      .dato=ann.name
+                      .dato.icon=image_tag('icons/' + ann.category + '/' + (rand(3)+1).to_s + '.png')
             -else
               %section.slide
                 -if content.diapo.show_title

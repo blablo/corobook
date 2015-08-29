@@ -1,11 +1,13 @@
-= simple_form_for(@anniversary) do |f|
-  = f.error_notification
+.panel.panel-default
+  .panel-body
+    = simple_form_for(@anniversary) do |f|
+      = f.error_notification
 
-  .form-inputs
-    = f.input :date
-    = f.input :name
-    = f.input :category, collection: ['birthday', 'wedding', 'other']
+      .form-group
+        = f.input :date, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12, order: [:day, :month, :year] 
+        = f.input :name
+        = f.input :category, collection: ['birthday', 'wedding', 'other']
 
 
-  .form-actions
-    = f.button :submit
+      .form-actions
+        = f.button :submit

@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require ckeditor/init
-//= require jquery.ui.sortable
+//= require jquery-ui/sortable
 //= require_tree .
+

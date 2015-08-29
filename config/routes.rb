@@ -40,9 +40,9 @@ Corobook::Application.routes.draw do
   end
 
 
-  authenticated :user do
-    root :to => 'songs#index'
-  end
+  # authenticated :user do
+  #   root :to => 'songs#index'
+  # end
   root :to => "songs#index"
   devise_for :users
   resources :users
