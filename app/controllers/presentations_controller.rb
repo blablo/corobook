@@ -3,7 +3,7 @@ class PresentationsController < ApplicationController
   # GET /presentations
   # GET /presentations.json
   def index
-    @presentations = current_church.presentations.order('fecha desc')
+    @presentations = current_church.presentations.order('fecha desc').page params[:page]
 
   end
 

@@ -1,11 +1,17 @@
-%h1 Listing anniversaries
+.row
+  .col-sm-8
+    %h1 Aniversarios
+  .col-sm-4.text-right
+    =link_to('Nuevo Aniversario', new_anniversary_path, :class => 'btn btn-primary btn-lg')
 
-%table.table
+%hr
+
+
+%table.table.table-bordered.table-hover.table-striped
   %tr
-    %th Date
-    %th Name
-    %th Category
-    %th
+    %th Día
+    %th Nombre
+    %th Categoría
     %th
 
   - @anniversaries.each do |anniversary|
@@ -13,9 +19,9 @@
       %td= anniversary.date.strftime('%d/%m')
       %td= anniversary.name
       %td= anniversary.category
-      %td= link_to 'Edit', edit_anniversary_path(anniversary)
-      %td= link_to 'Destroy', anniversary, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td.text-right
+        =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_anniversary_path(anniversary), :class => 'btn btn-default ')          
+        =link_to(raw('<span class="glyphicon glyphicon-trash"></span>'), anniversary, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default ')
 
-%br
 
-= link_to 'New Anniversary', new_anniversary_path
+

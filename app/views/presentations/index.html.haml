@@ -1,11 +1,16 @@
-%h1 Presentaciones
-=link_to('Nueva Presentación', new_presentation_url, :class => 'btn btn-default')
-%br
-%br
-%br
+.row
+  .col-sm-8
+    %h1 Presentaciones
+  .col-sm-4.text-right
+    =link_to('Nueva Presentación', new_presentation_url, :class => 'btn btn-primary btn-lg')
+
+%hr
+
+=paginate @presentations, :theme => 'twitter-bootstrap-3'
 
 %table.table.table-bordered.table-hover.table-striped
   -@presentations.each do |pres|
     %tr
       %td=link_to(pres.fecha.strftime('%d/%m/%Y'), pres)
-      %td=link_to 'Eliminar', pres, method: :delete, data: { confirm: 'Are you sure?' }    
+      %td.text-right=link_to(raw('<span class="glyphicon glyphicon-trash"></span>'), pres, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default ')
+

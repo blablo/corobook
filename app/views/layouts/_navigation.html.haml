@@ -1,30 +1,34 @@
 .navbar-header
-  =link_to "Corobook", root_path, :class => 'navbar-brand'
-%ul.nav.navbar-nav
-  %li
-    =link_to 'Songs', songs_path
+  %button{type: 'button', class: 'navbar-toggle collapsed', 'data-toggle'=> 'collapse', 'data-target'=> '#bs-example-navbar-collapse-1', 'aria-expanded'=> 'false'}
+    %span.sr-only Toggle navigation
+    %span.icon-bar
+    %span.icon-bar
+    %span.icon-bar
+  %a{class: 'navbar-brand', href: '/'} Corobook
 
-  - if user_signed_in?
-    %li
-      = link_to 'Presentaciones', presentations_path
-    %li
-      = link_to 'Diapositivas', diapos_path
-    %li
-      = link_to 'Aniversarios', anniversaries_path
+#bs-example-navbar-collapse-1.collapse.navbar-collapse
+  %ul.nav.navbar-nav
+    %li=link_to 'Songs', songs_path
+    - if user_signed_in?
+      %li= link_to 'Presentaciones', presentations_path
+      %li= link_to 'Diapositivas', diapos_path
+      %li= link_to 'Aniversarios', anniversaries_path
 
-    %li
-      = link_to 'Preferencias', settings_path
-    %li
-      = link_to 'Logout', destroy_user_session_path, :method=>'delete'
-  - else
-    %li
-      = link_to 'Login', new_user_session_path
-  - if user_signed_in?
-    %li
-      = link_to 'Edit account', edit_user_registration_path
-    - if current_user.has_role? :admin
-      %li
-        = link_to 'Admin', users_path
-  - else
-    %li
-      = link_to 'Sign up', new_user_registration_path
+  %ul.nav.navbar-nav.navbar-right
+    - if current_user 
+      %li.dropdown
+        %a{href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', role: 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false'} 
+          =current_user.email.gsub(/@.*/, "")
+          %span.caret
+        %ul.dropdown-menu
+          %li= link_to 'Edit account', edit_user_registration_path
+          %li= link_to 'Logout', destroy_user_session_path, :method=>'delete'
+          -if current_user.has_role? :admin
+            %li= link_to 'Admin', users_path
+      %li= link_to(raw('<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>'), settings_path)
+    - else
+      %li= link_to 'Login', new_user_session_path
+      %li= link_to 'Sign up', new_user_registration_path
+
+
+

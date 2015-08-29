@@ -23,12 +23,12 @@ class AnniversariesController < ApplicationController
   def create
     @anniversary = current_church.anniversaries.build(params[:anniversary])
     @anniversary.save
-    respond_with(@anniversary)
+    respond_with(@anniversary, :location => anniversaries_url)
   end
 
   def update
     @anniversary.update_attributes(params[:anniversary])
-    respond_with(@anniversary)
+    respond_with(@anniversary, :location => anniversaries_url)
   end
 
   def destroy

@@ -1,3 +1,51 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.home {
+    background: asset_url('home.jpg') no-repeat;
+    background-size: cover;
+}
+
+.home {
+  .forgot_url {
+    font-size: 0.8em;
+  }
+  .sign_in {
+    background-color: rgba(255,255,255,0.3);
+    border: none;
+  }
+  .panel {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  .or {
+    background: white;
+    border-radius: 10px;
+    color: #CCC;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 auto;
+    margin-top: -32px;
+    margin-bottom: 6px;
+    text-align: center;
+    width: 20px;
+  }
+  
+  .yeah {
+    background-color: #FFD247;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: white;
+    position: absolute;
+    right: 0;
+    text-align: right;
+
+    h1 {
+      font-weight: bold;
+      font-size: 3em;
+      padding: 10px;
+      padding-right: 100px;
+    }
+  }
+}
+

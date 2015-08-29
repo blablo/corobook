@@ -8,21 +8,78 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require_tree ./vendor/.
  *= require_self
  *= require_tree .
+
 */
 
-.content {
+/*.content {
   background-color: #eee;
   padding: 20px;
-  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  margin: 0 -20px; 
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}*/
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url(asset_path('glyphicons-halflings-regular.eot'));
+  src: url(asset_path('glyphicons-halflings-regular.eot?#iefix')) format('embedded-opentype'), url(asset_path('glyphicons-halflings-regular.woff')) format('woff'), url(asset_path('glyphicons-halflings-regular.ttf')) format('truetype'), url(asset_path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular')) format('svg');
 }
-.navbar-inverse .brand, .navbar-inverse .nav > li > a {
-color:white;
+
+h1, h2 {
+  margin: 0;
+}
+
+nav.navbar-default {
+  border-radius: 0;
+}
+
+#new_user {
+  .checkbox {
+    margin: 0;
+  }
+}
+
+
+.navbar-custom {
+  background-image: linear-gradient(to bottom, #337ab7 0px, #2e6da4 100%);
+  background-color: #428bca;
+  border-color: #428bca;
+  border-radius: 0;
+  color: white;
+
+  li a {
+    color: white;
+
+    &:hover {
+      background-color: #428bca;
+    }
+  }
+
+  .navbar-brand {
+    color: white;
+  }
+
+  .dropdown-menu li a{
+    color: #333;
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+ul.nav .open > a, ul.nav > li > a:hover, ul.nav > li > a:focus, ul.nav .open > a:hover, ul.nav .open > a:focus {
+  background-color: #428bca;
+}
+
+.widget {
+  h2 {
+    margin-top: 10px;
+  }
 }

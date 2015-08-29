@@ -1,10 +1,13 @@
-%h1 Diapositivas
-=link_to('Nueva Diapositiva', new_diapo_url, :class => 'btn btn-default')
-%br
-%br
-%br
+.row
+  .col-sm-8
+    %h1 Diapositivas
+  .col-sm-4.text-right
+    =link_to('Nueva Diapositiva', new_diapo_url, :class => 'btn btn-primary btn-lg')
+
+%hr
+
 %table.table.table-bordered.table-hover.table-striped
   -@diapos.each do |pres|
     %tr
       %td=link_to(pres.title, edit_diapo_url(pres))
-      %td=link_to 'Eliminar', pres, method: :delete, data: { confirm: 'Are you sure?' }    
+      %td.text-right=link_to(raw('<span class="glyphicon glyphicon-trash"></span>'), pres, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default ')

@@ -1,38 +1,33 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @song.title
-%p
-  %b Reference:
-  = @song.reference
-%p
-  %b Author:
-  = @song.author
-%p
-  %b Mood:
-  = @song.mood
+.row
+  .col-sm-11
+    %h1
+      =@song.title
+      .small=@song.reference
+  .col-sm-1.text-right
+    =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(@song), :class => 'btn btn-default ')
 
-
-.well
-  %h1=@song.title
-  -diapo = @song.sorted_array_lyric(true)
-  
-  -if !@song.order.blank?
-    -diapo.each do |verse|
-      %h5=verse.keys[0]
-      %pre=chordify2(verse.values[0]) 
-
-%p
-  %b Video:
-  %br
-  -unless @song.link.blank?
-    %iframe{:width => "560", :height => "315", :src => "//www.youtube.com/embed/" + @song.link.scan(/=(.*)$/)[0][0], :frameborder => "0", :allowfullscreen => true}
+-if !@song.author.blank?
+  %p
+    %b By:
+    =@song.author
 
 %p
   %b Order:
   = @song.order
 
-= link_to 'Edit', edit_song_path(@song)
-\|
-= link_to 'Back', songs_path
+.well
+  -diapo = @song.sorted_array_lyric(true)
+  -if !@song.order.blank?
+    -diapo.each do |verse|
+      %h5=verse.keys[0]
+      %pre=chordify2(verse.values[0]) 
+
+-unless @song.link.blank?
+  %p
+    %b Video:
+    %br
+
+  %iframe{:width => "560", :height => "315", :src => "//www.youtube.com/embed/" + @song.link.scan(/=(.*)$/)[0][0], :frameborder => "0", :allowfullscreen => true}
+

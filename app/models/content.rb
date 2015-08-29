@@ -6,5 +6,12 @@ class Content < ActiveRecord::Base
   belongs_to :todo_list
   acts_as_list scope: :presentation
 
+  def thing
+    if self.song
+      return song
+    else
+      return diapo
+    end
+  end
 
 end

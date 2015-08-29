@@ -36,5 +36,7 @@ gem "mini_magick"
 gem 'ckeditor'
 gem "acts_as_list"
 gem 'jquery-ui-rails'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 gem 'protected_attributes'
