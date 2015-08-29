@@ -7,9 +7,8 @@ class Presentation < ActiveRecord::Base
 
   validates :fecha, presence: true
 
-  def load_template
-    
-    template = "song_id: 1, song_id: 2, diapo_id: 1".split(',')
+  def load_template(church)
+    template = church.settings.first.presentation_template.split(',')
     
     template.each do |cont|
       self.contents.build(eval("{"+cont+"}"))

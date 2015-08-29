@@ -34,7 +34,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/new.json
   def new
     @presentation = current_church.presentations.build
-    @presentation.load_template
+    @presentation.load_template(current_church)
 
     respond_to do |format|
       format.html # new.html.erb
