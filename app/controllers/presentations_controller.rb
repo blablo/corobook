@@ -22,7 +22,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/1.json
   def live
     @presentation = current_church.presentations.find(params[:id])
-    @anniversaries = current_church.anniversaries
+    @anniversaries = current_church.anniversaries.current_month
 
     respond_to do |format|
       format.html { render :layout => false } # show.html.erb
