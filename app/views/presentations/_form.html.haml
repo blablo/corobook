@@ -17,7 +17,7 @@
 
 
             .col-xs-10.col-sm-8.diapo{:style => content.object.diapo_id ? '' : 'display: none'}
-              =content.collection_select(:diapo_id, Diapo.all, :id, :title, {:include_blank => ''}, :class => 'form-control')
+              =content.collection_select(:diapo_id, current_church.diapos, :id, :title, {:include_blank => ''}, :class => 'form-control')
             .col-sm-3.col-xs-12
               =content.link_to_remove "Remover"
 
