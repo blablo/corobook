@@ -65,32 +65,34 @@ Corobook::Application.configure do
   config.action_mailer.default_url_options = { :host => 'example.com' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "example.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
-  }
 
-config.action_mailer.delivery_method = :smtp  
-config.action_mailer.smtp_settings = {            
-  :address              => "smtp.zoho.com", 
-  :port                 => 465,                 
-  :user_name            => 'contacto@corobook.com',
-  :password             => 'mac2009',         
-  :authentication       => :login,
-  :ssl                  => true,
-  :tls                  => true,
-  :enable_starttls_auto => true    
-}
+  # config.action_mailer.delivery_method = :smtp
+
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.gmail.com",
+  #   port: 587,
+  #   domain: "example.com",
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #   user_name: ENV["GMAIL_USERNAME"],
+  #   password: ENV["GMAIL_PASSWORD"]
+  # }
+
+# config.action_mailer.delivery_method = :smtp  
+# config.action_mailer.smtp_settings = {            
+#   :address              => "smtp.zoho.com", 
+#   :port                 => 465,                 
+#   :user_name            => 'contacto@corobook.com',
+#   :password             => 'mac2009',         
+#   :authentication       => :login,
+#   :ssl                  => true,
+#   :tls                  => true,
+#   :enable_starttls_auto => true    
+# }
 
 
   # Log the query plan for queries taking more than this (works

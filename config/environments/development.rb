@@ -15,13 +15,6 @@ Corobook::Application.configure do
 
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.delivery_method = :smtp
-  # change to true to allow email to be sent during development
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default :charset => "utf-8"
-
-
 
 
   # Print deprecation notices to the Rails logger
@@ -44,18 +37,20 @@ Corobook::Application.configure do
   config.assets.debug = true
 
 	
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
 
 # Action Mailer
-ActionMailer::Base.delivery_method = :smtp  
-ActionMailer::Base.smtp_settings = {            
-  :address              => "smtp.zoho.com", 
-  :port                 => 465,                 
-  :user_name            => 'contacto@corobook.com',
-  :password             => 'mac2009',         
-  :authentication       => :login,
-  :ssl                  => true,
-  :tls                  => true,
-  :enable_starttls_auto => true    
-}
+# ActionMailer::Base.delivery_method = :smtp  
+# ActionMailer::Base.smtp_settings = {            
+#   :address              => "smtp.zoho.com", 
+#   :port                 => 465,                 
+#   :user_name            => 'contacto@corobook.com',
+#   :password             => 'mac2009',         
+#   :authentication       => :login,
+#   :ssl                  => true,
+#   :tls                  => true,
+#   :enable_starttls_auto => true    
+# }
 
 end

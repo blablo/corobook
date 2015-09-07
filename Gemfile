@@ -40,3 +40,4 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 
 gem 'protected_attributes'
+gem 'aws-sdk-rails', '~> 1.0'

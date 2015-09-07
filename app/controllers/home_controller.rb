@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
     @songs1 = Song.first(5)
     @songs2 = Song.last(5)
-    if current_user
+    if current_user and current_church
       @presentation = current_church.presentations.last
     end
   end
