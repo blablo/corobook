@@ -57,7 +57,11 @@ class Song < ActiveRecord::Base
       else
         #        if line =~ /\b[CDEFGAB]m?7?\b/
         unless line.gsub(/\r\n/, '').blank?
-          if (line.scan(/\b[CDEFGAB.\/-](?:#\{1,2\}|b{1,2})?(?:7?|m7?|sus2?)\b/).join.size == line.gsub(/\s/, '').size)
+
+           if line =~ /\b[CDEFGAB]m?7?\b/
+#          if (line.scan(/\b[CDEFGAB.\/-](?:#\{1,2\}|b{1,2})?(?:7?|m7?|sus2?)\b/).join.size == line.gsub(/\s/, '').size)
+
+        #  if (line.scan(/\b[CDEFGAB.\/-](?:.{1,2}|b{1,2})?(m7?|sus2?)?\b/).join.size == line.gsub(/\s/, '').size)
             hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :chords} if show_chords
           else
             hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :text}
