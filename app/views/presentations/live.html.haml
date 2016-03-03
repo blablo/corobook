@@ -21,6 +21,10 @@
     %link{href: "/core/print.css", media: "print", rel: "stylesheet"}/
     <link href='https://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
 
+    <meta property="og:title"              content="Presentación #{@presentation.fecha.strftime('%d/%m/%Y')}" />
+    <meta property="og:description"        content="#{@presentation.songs_list}" />
+    <meta property="og:image"              content="#{image_url('pf.jpg')}" />
+
     =stylesheet_link_tag 'live'
 
     / Required Modernizr file
@@ -28,15 +32,15 @@
 
     :css
       .song-slide {
-        background: url(#{current_church.settings.first.songs_background});
+        background: url(#{@church.settings.first.songs_background});
         background-size: cover;
       }  
       .song-slide h1 {
-        color: #{current_church.settings.first.songs_font_color};
-        text-transform: #{current_church.settings.first.songs_case};
+        color: #{@church.settings.first.songs_font_color};
+        text-transform: #{@church.settings.first.songs_case};
       } 
       #anniversaries {
-        background: url(#{current_church.settings.first.anniversaries_background});
+        background: url(#{@church.settings.first.anniversaries_background});
         background-size: cover;        
       }
 

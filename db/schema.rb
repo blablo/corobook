@@ -9,134 +9,135 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150828221037) do
+ActiveRecord::Schema.define(version: 20160303201412) do
 
-  create_table "anniversaries", :force => true do |t|
+  create_table "anniversaries", force: true do |t|
     t.datetime "date"
     t.string   "name"
     t.string   "category"
     t.string   "church_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "easy_date"
   end
 
-  add_index "anniversaries", ["church_id"], :name => "index_anniversaries_on_church_id"
+  add_index "anniversaries", ["church_id"], name: "index_anniversaries_on_church_id", using: :btree
 
-  create_table "churches", :force => true do |t|
+  create_table "churches", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "ckeditor_assets", :force => true do |t|
-    t.string   "data_file_name",                  :null => false
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.integer  "assetable_id"
-    t.string   "assetable_type",    :limit => 30
-    t.string   "type",              :limit => 30
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
     t.integer  "width"
     t.integer  "height"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
-  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
-  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
-  create_table "contents", :force => true do |t|
+  create_table "contents", force: true do |t|
     t.integer  "order"
     t.integer  "song_id"
     t.integer  "diapo_id"
     t.integer  "presentation_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "position"
   end
 
-  create_table "diapos", :force => true do |t|
+  create_table "diapos", force: true do |t|
     t.string   "title"
     t.text     "info"
     t.string   "background"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean  "show_title"
     t.integer  "church_id"
   end
 
-  add_index "diapos", ["church_id"], :name => "index_diapos_on_church_id"
+  add_index "diapos", ["church_id"], name: "index_diapos_on_church_id", using: :btree
 
-  create_table "group_collaborators", :force => true do |t|
+  create_table "group_collaborators", force: true do |t|
     t.string   "email"
     t.integer  "user_id"
     t.string   "name"
     t.integer  "role"
     t.integer  "group_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "groups", :force => true do |t|
+  create_table "groups", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.integer  "role",       :default => 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "role",       default: 0
   end
 
-  create_table "presentations", :force => true do |t|
+  create_table "presentations", force: true do |t|
     t.datetime "fecha"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "church_id"
   end
 
-  add_index "presentations", ["church_id"], :name => "index_presentations_on_church_id"
+  add_index "presentations", ["church_id"], name: "index_presentations_on_church_id", using: :btree
 
-  create_table "roles", :force => true do |t|
+  create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
     t.string   "resource_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], :name => "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "settings", :force => true do |t|
+  create_table "settings", force: true do |t|
     t.string   "songs_background"
-    t.string   "songs_case",               :default => "none"
+    t.string   "songs_case",               default: "none"
     t.string   "church_id"
-    t.string   "songs_font_color",         :default => "#FFFFFF"
+    t.string   "songs_font_color",         default: "#FFFFFF"
     t.string   "presentation_template"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "anniversaries_background"
   end
 
-  add_index "settings", ["church_id"], :name => "index_settings_on_church_id"
+  add_index "settings", ["church_id"], name: "index_settings_on_church_id", using: :btree
 
-  create_table "songbook_songs", :force => true do |t|
+  create_table "songbook_songs", force: true do |t|
     t.integer  "song_id"
     t.integer  "songbook_id"
     t.integer  "order"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "songbooks", :force => true do |t|
+  create_table "songbooks", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.date     "fecha"
     t.integer  "church_id"
   end
 
-  add_index "songbooks", ["church_id"], :name => "index_songbooks_on_church_id"
+  add_index "songbooks", ["church_id"], name: "index_songbooks_on_church_id", using: :btree
 
-  create_table "songs", :force => true do |t|
+  create_table "songs", force: true do |t|
     t.string   "title"
     t.string   "author"
     t.text     "lyric"
@@ -150,51 +151,51 @@ ActiveRecord::Schema.define(:version => 20150828221037) do
     t.integer  "church_id"
   end
 
-  add_index "songs", ["church_id"], :name => "index_songs_on_church_id"
+  add_index "songs", ["church_id"], name: "index_songs_on_church_id", using: :btree
 
-  create_table "user_groups", :force => true do |t|
+  create_table "user_groups", force: true do |t|
     t.integer  "user_id"
     t.integer  "group_id"
     t.integer  "role"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "name"
     t.integer  "group_id"
-    t.integer  "role",                   :default => 0
+    t.integer  "role",                   default: 0
     t.integer  "church_id"
   end
 
-  add_index "users", ["church_id"], :name => "index_users_on_church_id"
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["church_id"], name: "index_users_on_church_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "users_roles", :id => false, :force => true do |t|
+  create_table "users_roles", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  create_table "votes", :force => true do |t|
+  create_table "votes", force: true do |t|
     t.integer  "song_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

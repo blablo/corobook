@@ -4,7 +4,8 @@ class AnniversariesController < ApplicationController
   respond_to :html
 
   def index
-    @anniversaries = current_church.anniversaries.order(:date)
+    @anniversaries = current_church.anniversaries.order(:easy_date)
+
     respond_with(@anniversaries)
   end
 

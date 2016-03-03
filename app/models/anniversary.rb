@@ -4,5 +4,5 @@ class Anniversary < ActiveRecord::Base
   validates :category, presence: true
   validates :name, presence: true
   scope :current_month, -> { where('MONTH(date) = MONTH(CURDATE())')}
-
+  
 end

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_church
-    current_user.church
+    current_user.church if current_user
   end
 
 

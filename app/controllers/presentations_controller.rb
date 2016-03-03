@@ -1,5 +1,6 @@
 class PresentationsController < ApplicationController
-
+  load_and_authorize_resource
+  skip_authorize_resource :only => :live
   # GET /presentations
   # GET /presentations.json
   def index
@@ -21,8 +22,9 @@ class PresentationsController < ApplicationController
   # GET /presentations/1
   # GET /presentations/1.json
   def live
-    @presentation = current_church.presentations.find(params[:id])
-    @anniversaries = current_church.anniversaries.current_month
+    @presentation = Presentation.find(params[:id])
+    @church = @presentation.church
+    @anniversaries = @church.anniversaries.current_month
 
     respond_to do |format|
       format.html { render :layout => false } # show.html.erb
