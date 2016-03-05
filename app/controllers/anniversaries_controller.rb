@@ -23,7 +23,7 @@ class AnniversariesController < ApplicationController
 
   def create
     @anniversary = current_church.anniversaries.build(params[:anniversary])
-    @anniversary.easy_date = @anniversary.date.month.to_s + @anniversary.date.day.to_s.strftime("%d")
+    @anniversary.easy_date = @anniversary.date.month.to_s + @anniversary.date.strftime("%d")
     @anniversary.save
     respond_with(@anniversary, :location => anniversaries_url)
   end
