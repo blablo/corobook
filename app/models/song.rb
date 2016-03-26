@@ -79,7 +79,8 @@ class Song < ActiveRecord::Base
     array = []
     order = order_list
     order.each_with_index do |verse, index|
-      if order[index] == order[index-1]
+      verse.strip!
+      if order[index] == order[index-1] and index > 0
         tmp_verse = Marshal.load( Marshal.dump( hl[verse] ) )
         show_chords ? hl[verse].second[:line].prepend('/') : hl[verse].first[:line].prepend('/')
         hl[verse].last[:line] += '/'
