@@ -1,0 +1,28 @@
+version: "2"
+services:
+
+  corobook:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: corobook
+    command: /bin/bash -c "/corobook/run.sh"
+    hostname: corobook
+    domainname: corobook.io
+    volumes:
+      - ~/Development/corobook:/corobook
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      RACK_ENV: development
+      SERVER_NAME: localhost.ssl
+      #Database
+      DB_NAME: corobook_development
+      DB_USERNAME: blablo
+      DB_PASSWORD: password
+      DB_HOST: 192.168.99.1
+      DB_PORT: 3306
+      DB_POOL: 5
+
+      

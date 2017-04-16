@@ -39,6 +39,10 @@
         color: #{@church.settings.first.songs_font_color};
         text-transform: #{@church.settings.first.songs_case};
       } 
+      .song-slide h1 span{
+        background-color: #{@church.settings.first.songs_text_bg_color};
+        padding-left: 5px;
+      }
       #anniversaries {
         background: url(#{@church.settings.first.anniversaries_background});
         background-size: cover;        
@@ -62,7 +66,8 @@
           -content.song.order.split(',').each do |verse|
             -if !diapo[verse.upcase.lstrip].blank?
               %section.slide.song-slide
-                %h1.verso=raw(diapo[verse.upcase.lstrip].gsub('\n','<br>'))
+                %h1.verso
+                  %span=raw(diapo[verse.upcase.lstrip].gsub('\n','<br>'))
         -else
           -if content.diapo.background_url.blank?
 
