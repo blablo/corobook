@@ -21,8 +21,8 @@
   -diapo = @song.sorted_array_lyric(true)
   -if !@song.order.blank?
     -diapo.each do |verse|
-      %h5=verse.keys[0]
-      %pre=chordify2(verse.values[0]) 
+      %h5=verse[:label]
+      %pre=chordify2(verse[:text]) 
 
 -unless @song.link.blank?
   %p

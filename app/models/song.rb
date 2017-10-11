@@ -75,19 +75,24 @@ class Song < ActiveRecord::Base
   end
 
   def sorted_array_lyric(show_chords = false)
+
     hl = self.hashed_lyric(show_chords)
     array = []
     order = order_list
     order.each_with_index do |verse, index|
       verse.strip!
+      part = Marshal.load( Marshal.dump( hl[verse] ) )
+
       if order[index] == order[index-1] and index > 0
-        tmp_verse = Marshal.load( Marshal.dump( hl[verse] ) )
-        show_chords ? hl[verse].second[:line].prepend('/') : hl[verse].first[:line].prepend('/')
-        hl[verse].last[:line] += '/'
-        array[array.count-1] = { verse => hl[verse]}
-        hl[verse] = tmp_verse
+        #tmp_verse = Marshal.load( Marshal.dump( part ) )
+        part.select{|key| key[:type] == :text}.first[:line].prepend('/')
+        part.select{|key| key[:type] == :text}.last[:line] += '/'
+
+        array.pop
+        array << { label: verse, text: part}
+        #hl[verse] = tmp_verse
       else
-        array << { verse => hl[verse]}
+        array << { label: verse, text: part}
       end
     end
 

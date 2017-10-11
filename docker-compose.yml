@@ -7,6 +7,7 @@ services:
       dockerfile: ./Dockerfile
     container_name: corobook
     command: /bin/bash -c "/corobook/run.sh"
+    #command: tail -f /corobook/run.sh
     hostname: corobook
     domainname: corobook.io
     volumes:

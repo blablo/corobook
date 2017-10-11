@@ -45,6 +45,21 @@ module ApplicationHelper
 
   end
 
+  def chordify3(lyric)
+    return if lyric.nil?
+
+    text = lyric[:text].each do |sum, line|
+      if line[:type] == :chords
+        sum += "<span style='color:red'>" + line[:line] + "</span><br />"
+      else
+        sum += line[:line] + "<br />"
+      end
+    end
+
+    return raw text
+
+  end
+
   def format_verse(verse)
     return verse.inject("") do |sum, line|
       
