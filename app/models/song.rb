@@ -79,19 +79,24 @@ class Song < ActiveRecord::Base
     hl = self.hashed_lyric(show_chords)
     array = []
     order = order_list
+    count = 0
     order.each_with_index do |verse, index|
       verse.strip!
       part = Marshal.load( Marshal.dump( hl[verse] ) )
 
       if order[index] == order[index-1] and index > 0
+        count += 1
+        slash = "/" * count
+
         #tmp_verse = Marshal.load( Marshal.dump( part ) )
-        part.select{|key| key[:type] == :text}.first[:line].prepend('/')
-        part.select{|key| key[:type] == :text}.last[:line] += '/'
+        part.select{|key| key[:type] == :text}.first[:line].prepend(slash)
+        part.select{|key| key[:type] == :text}.last[:line] += slash
 
         array.pop
         array << { label: verse, text: part}
         #hl[verse] = tmp_verse
       else
+        count = 1
         array << { label: verse, text: part}
       end
     end
