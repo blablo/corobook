@@ -8,12 +8,17 @@
 -@presentation.contents.order('position asc').each do |content|
   .well
     -if content.song
+
+
+
+      
       %h1=content.song.title
-      -diapo = content.song.diapo_mode(true)
+      -diapo = content.song.sorted_array_lyric(true)
       -if !content.song.order.blank?
-        -content.song.order.split(',').each do |verse|
-          %h5=verse
-          %pre=chordify(diapo[verse.upcase.lstrip]) rescue 'a'
+        -diapo.each do |verse|
+          %h5=verse[:label]
+          %pre=chordify2(verse[:text])
+            
       -else
         Le falta el orden de los versos..
         =link_to("Editar", edit_song_url(content.song))

@@ -61,13 +61,12 @@
         -if content.song
           %section.slide.song-slide
             %h1.title=content.song.title
-          -diapo = content.song.diapo_mode
-
-          -content.song.order.split(',').each do |verse|
-            -if !diapo[verse.upcase.lstrip].blank?
+          -diapo = content.song.sorted_array_lyric
+          -diapo.each do |verse|
+            -unless verse[:text].blank? # or verse.values[0].blank?
               %section.slide.song-slide
-                %h1.verso
-                  %span=raw(diapo[verse.upcase.lstrip].gsub('\n','<br>'))
+                %h1.verso=format_verse_diapo(verse[:text])
+            
         -else
           -if content.diapo.background_url.blank?
 

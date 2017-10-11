@@ -40,9 +40,9 @@
         %h1.title=@song.title
       -diapo = @song.sorted_array_lyric
       -diapo.each do |verse|
-        -unless verse.values.nil? or verse.values[0].blank?
+        -unless verse[:text].blank? # or verse.values[0].blank?
           %section.slide.song-slide
-            %h1.verso=format_verse_diapo(verse.values[0])
+            %h1.verso=format_verse_diapo(verse[:text])
 
 
     / End slides.
