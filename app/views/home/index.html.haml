@@ -14,8 +14,8 @@
                 =link_to('On Air', live_presentation_url(@presentation), :class => 'col-sm-6 btn btn-danger')
 
             .list-group
-            -@presentation.contents.each do |content|
-              %a{href: presentation_path(@presentation), class: 'list-group-item'}=content.thing.title
+              -@presentation.contents.each do |content|
+                %a{href: presentation_path(@presentation), class: 'list-group-item'}=content.thing.title
 
 -else
   .row
