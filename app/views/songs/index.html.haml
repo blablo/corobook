@@ -28,9 +28,9 @@
         -if song.valid?
           =link_to(raw('<span class="glyphicon glyphicon-fullscreen"></span>'), live_song_url(song), :class => 'btn btn-default ')
     
-        -if current_user and can?(:update, song)
+        -if current_user and can?(:update, song) and song.editable_by?(current_user)
           =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(song), :class => 'btn btn-default ')
-        -if current_user and can?(:destroy, song)
+        -if current_user and can?(:destroy, song) and song.editable_by?(current_user)
           =link_to(raw('<span class="glyphicon glyphicon-trash"></span>'), song, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default ')
 
 

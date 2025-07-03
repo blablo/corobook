@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :live]
   before_action :check_user_has_group, only: [:new, :create]
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:index, :show, :live]
   
   # GET /songs
   # GET /songs.json
@@ -19,6 +19,7 @@ class SongsController < ApplicationController
   # GET /songs/1.json
   def show
     @song = Song.find(params[:id])
+    # No authorization needed - public access
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +29,7 @@ class SongsController < ApplicationController
 
   def live
     @song = Song.find(params[:id])
+    # No authorization needed - public access
 
     respond_to do |format|
       format.html { render :layout => false } # show.html.erb
@@ -50,6 +52,7 @@ class SongsController < ApplicationController
   # GET /songs/1/edit
   def edit
     @song = Song.find(params[:id])
+    authorize! :update, @song
   end
 
   # POST /songs
@@ -75,6 +78,7 @@ class SongsController < ApplicationController
   # PUT /songs/1.json
   def update
     @song = Song.find(params[:id])
+    authorize! :update, @song
 
     respond_to do |format|
       if @song.update_attributes(params[:song])
@@ -91,6 +95,7 @@ class SongsController < ApplicationController
   # DELETE /songs/1.json
   def destroy
     @song = Song.find(params[:id])
+    authorize! :destroy, @song
     @song.destroy
 
     respond_to do |format|

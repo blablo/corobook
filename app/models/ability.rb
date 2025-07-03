@@ -15,7 +15,10 @@ class Ability
         can :create, Song
         can [:update, :destroy], Song do |song|
           # Can manage songs from their primary group or any group they belong to
-          user.group == song.group || user.groups.include?(song.group)
+          song.group.present? && (
+            user.group == song.group || 
+            user.groups.include?(song.group)
+          )
         end
         can :manage, Songbook
         can :manage, Presentation
@@ -35,7 +38,10 @@ class Ability
         can :create, Song
         can [:update, :destroy], Song do |song|
           # Can manage songs from their primary group or any group they belong to
-          user.group == song.group || user.groups.include?(song.group)
+          song.group.present? && (
+            user.group == song.group || 
+            user.groups.include?(song.group)
+          )
         end
         can :read, Songbook
         can :read, Presentation

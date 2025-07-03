@@ -6,7 +6,7 @@
       =@song.title
       .small=@song.reference
   .col-sm-1.text-right
-    -if current_user and can?(:update, @song)
+    -if current_user and can?(:update, @song) and @song.editable_by?(current_user)
       =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(@song), :class => 'btn btn-default ')
 
 -if !@song.author.blank?

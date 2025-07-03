@@ -187,4 +187,15 @@ class Song < ActiveRecord::Base
     end
   end
 
+  # Helper method to check if a user can edit this song
+  def editable_by?(user)
+    return false unless user && user.persisted?
+    return true if user.has_role?(:admin)
+    
+    # Check if user belongs to the same group as the song
+    return false unless self.group.present?
+    
+    user.group == self.group || user.groups.include?(self.group)
+  end
+
 end
