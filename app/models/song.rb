@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class Song < ActiveRecord::Base
-  attr_accessible :author, :link, :lyric, :mood, :order, :reference, :title, :user_id
+  attr_accessible :author, :link, :lyric, :mood, :order, :reference, :title, :user_id, :group_id
+  belongs_to :user
+  belongs_to :group
   has_many :songbook_songs
   has_many :songbooks, :through => :songbook_songs
   has_many :votes
@@ -8,6 +10,8 @@ class Song < ActiveRecord::Base
   validates :title, presence: true
   validates :lyric, presence: true
   validates :order, presence: true
+  validates :user, presence: true
+  validates :group, presence: true
   validate :validate_sintax
 
   def validate_sintax

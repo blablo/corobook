@@ -3,10 +3,51 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    if user.has_role? :admin
-      can :manage, :all
-    else
-      can :read, :all
+    
+    # Everyone can read songs (including guests)
+    can :read, Song
+    
+    if user.persisted? # logged in user
+      if user.has_role? :admin
+        can :manage, :all
+      elsif user.is_song_manager? || user.role >= 3
+        # Song managers can create songs and manage their group's songs
+        can :create, Song
+        can [:update, :destroy], Song do |song|
+          # Can manage songs from their primary group or any group they belong to
+          user.group == song.group || user.groups.include?(song.group)
+        end
+        can :manage, Songbook
+        can :manage, Presentation
+        can :manage, Diapo
+        can :manage, Anniversary
+        can :manage, Setting
+      elsif user.is_songbook_manager? || user.role >= 5
+        # Songbook managers can manage songbooks
+        can :manage, Songbook
+        can :read, Song
+        can :manage, Presentation
+        can :manage, Diapo
+        can :manage, Anniversary
+        can :manage, Setting
+      else
+        # Regular users can create songs and edit songs from their groups
+        can :create, Song
+        can [:update, :destroy], Song do |song|
+          # Can manage songs from their primary group or any group they belong to
+          user.group == song.group || user.groups.include?(song.group)
+        end
+        can :read, Songbook
+        can :read, Presentation
+        can :read, Diapo
+        can :read, Anniversary
+        can :read, Setting
+      end
+      
+      # All logged users can manage groups and collaborators
+      can :manage, Group
+      can :manage, GroupCollaborator
+      can :manage, UserGroup
     end
     # Define abilities for the passed in user here. For example:
     #

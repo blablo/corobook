@@ -1,5 +1,6 @@
 class DiaposController < ApplicationController
-
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /diapos
   # GET /diapos.json

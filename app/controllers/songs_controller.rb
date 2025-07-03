@@ -1,4 +1,8 @@
 class SongsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :live]
+  before_action :check_user_has_group, only: [:new, :create]
+  load_and_authorize_resource
+  
   # GET /songs
   # GET /songs.json
   def index
@@ -52,6 +56,9 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     @song = Song.new(params[:song])
+    @song.user = current_user
+    # If user has a primary group, use it; otherwise use their first group from user_groups
+    @song.group = current_user.group || current_user.groups.first
 
     respond_to do |format|
       if @song.save
@@ -132,5 +139,12 @@ class SongsController < ApplicationController
     end
   end
 
+  private
+
+  def check_user_has_group
+    unless current_user.group || current_user.groups.any?
+      redirect_to root_path, alert: 'Debes pertenecer a un grupo para crear canciones. Contacta al administrador.'
+    end
+  end
 
 end

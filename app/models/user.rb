@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   belongs_to :group
   belongs_to :church
   has_many :votes
+  has_many :songs
+  has_many :user_groups
+  has_many :groups, through: :user_groups
 
   rolify
   # Include default devise modules. Others available are:

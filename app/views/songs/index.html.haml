@@ -11,11 +11,9 @@
     %th Autor
     %th Referencia
     %th Intensidad
-
-
-
+    %th Grupo
+    %th Creado por
     %th
-
 
   - @songs.each do |song|
     %tr{:id => "song"+song.id.to_s}
@@ -23,16 +21,16 @@
       %td=song.author
       %td=song.reference
       %td=song.mood
-
-      
+      %td=song.group.name if song.group
+      %td=song.user.name if song.user
 
       %td
         -if song.valid?
           =link_to(raw('<span class="glyphicon glyphicon-fullscreen"></span>'), live_song_url(song), :class => 'btn btn-default ')
     
-        -if current_user and current_user.role >= 3
+        -if current_user and can?(:update, song)
           =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(song), :class => 'btn btn-default ')
-        -if current_user 
+        -if current_user and can?(:destroy, song)
           =link_to(raw('<span class="glyphicon glyphicon-trash"></span>'), song, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default ')
 
 

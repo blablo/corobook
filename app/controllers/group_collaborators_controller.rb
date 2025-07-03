@@ -1,4 +1,7 @@
 class GroupCollaboratorsController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
+  
   # GET /group_collaborators
   # GET /group_collaborators.json
   def index

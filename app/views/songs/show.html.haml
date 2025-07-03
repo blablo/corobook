@@ -6,12 +6,23 @@
       =@song.title
       .small=@song.reference
   .col-sm-1.text-right
-    =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(@song), :class => 'btn btn-default ')
+    -if current_user and can?(:update, @song)
+      =link_to(raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_song_url(@song), :class => 'btn btn-default ')
 
 -if !@song.author.blank?
   %p
     %b By:
     =@song.author
+
+-if @song.group
+  %p
+    %b Grupo:
+    =@song.group.name
+
+-if @song.user
+  %p
+    %b Creado por:
+    =@song.user.name
 
 %p
   %b Order:

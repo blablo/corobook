@@ -1,4 +1,5 @@
 class AnniversariesController < ApplicationController
+  before_action :authenticate_user!
   before_filter :set_anniversary, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

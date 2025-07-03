@@ -1,4 +1,7 @@
 class UserGroupsController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
+  
   # GET /user_groups
   # GET /user_groups.json
   def index

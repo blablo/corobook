@@ -1,4 +1,7 @@
 class SongbooksController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
+  
   # GET /songbooks
   # GET /songbooks.json
   def index
