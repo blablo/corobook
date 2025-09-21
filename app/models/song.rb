@@ -60,7 +60,7 @@ class Song < ActiveRecord::Base
     clean_lyric = ""
     prev_chords = false
     lines.each do |line|
-      if line =~ /\b[CDEFGAB]m?7?\b/ and !prev_chords
+      if line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/ and !prev_chords
         prev_chords = true
       else
         prev_chords = false
@@ -84,10 +84,7 @@ class Song < ActiveRecord::Base
         #        if line =~ /\b[CDEFGAB]m?7?\b/
         unless line.gsub(/\r\n/, '').blank?
 
-           if line =~ /\b[CDEFGAB]m?7?\b/
-#          if (line.scan(/\b[CDEFGAB.\/-](?:#\{1,2\}|b{1,2})?(?:7?|m7?|sus2?)\b/).join.size == line.gsub(/\s/, '').size)
-
-        #  if (line.scan(/\b[CDEFGAB.\/-](?:.{1,2}|b{1,2})?(m7?|sus2?)?\b/).join.size == line.gsub(/\s/, '').size)
+           if line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/
             hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :chords} if show_chords
           else
             hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :text}
@@ -163,7 +160,7 @@ class Song < ActiveRecord::Base
           hash[hash_actual] = ''
 
         else
-          if line =~ /\b[CDEFGAB]m?7?\b/ and !is_chord
+          if line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/ and !is_chord
             is_chord = true
             hash[hash_actual] += line if chords
           else
