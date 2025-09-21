@@ -60,7 +60,14 @@ class Song < ActiveRecord::Base
     clean_lyric = ""
     prev_chords = false
     lines.each do |line|
-      if line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/ and !prev_chords
+      chord_matches = line.scan(/\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/)
+      line_without_spaces = line.gsub(/\s/, '')
+      chord_content = chord_matches.join('')
+      is_chord_line = (chord_matches.length >= 2) || 
+                     (chord_content.length > 0 && line_without_spaces.length > 0 && 
+                      (chord_content.length.to_f / line_without_spaces.length) >= 0.6)
+      
+      if is_chord_line and !prev_chords
         prev_chords = true
       else
         prev_chords = false
@@ -89,7 +96,21 @@ class Song < ActiveRecord::Base
       else
         unless line.gsub(/\r\n/, '').blank?
           clean_line = line.gsub(/\r\n/, '')
-          is_chord_line = line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/
+          # Check if line is mostly chords by counting chord matches vs total content
+          chord_matches = line.scan(/\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/)
+          # Remove all whitespace and see if chords make up most of the content
+          line_without_spaces = line.gsub(/\s/, '')
+          chord_content = chord_matches.join('')
+          
+          # A line is considered chords if:
+          # 1. It has at least 2 chord matches, OR
+          # 2. Chord content makes up at least 60% of non-space characters
+          is_chord_line = (chord_matches.length >= 2) || 
+                         (chord_content.length > 0 && line_without_spaces.length > 0 && 
+                          (chord_content.length.to_f / line_without_spaces.length) >= 0.6)
+          
+          Rails.logger.info "  -> Chord matches: #{chord_matches} (#{chord_matches.length})"
+          Rails.logger.info "  -> Chord content ratio: #{chord_content.length}/#{line_without_spaces.length} = #{line_without_spaces.length > 0 ? (chord_content.length.to_f / line_without_spaces.length).round(2) : 0}"
           
           Rails.logger.info "  -> Clean line: '#{clean_line}'"
           Rails.logger.info "  -> Is chord line: #{!!is_chord_line}"
@@ -183,7 +204,14 @@ class Song < ActiveRecord::Base
           hash[hash_actual] = ''
 
         else
-          if line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/ and !is_chord
+          chord_matches = line.scan(/\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/)
+          line_without_spaces = line.gsub(/\s/, '')
+          chord_content = chord_matches.join('')
+          is_chord_line_diapo = (chord_matches.length >= 2) || 
+                               (chord_content.length > 0 && line_without_spaces.length > 0 && 
+                                (chord_content.length.to_f / line_without_spaces.length) >= 0.6)
+          
+          if is_chord_line_diapo and !is_chord
             is_chord = true
             hash[hash_actual] += line if chords
           else
