@@ -10,15 +10,37 @@ class Song < ActiveRecord::Base
   validates :title, presence: true
   validates :lyric, presence: true
   validates :order, presence: true
-  validates :user, presence: true, on: :create
   validates :group, presence: true
   validate :validate_sintax
+  validate :validate_user_on_create
+  
+  before_validation :log_validation_state
 
   def validate_sintax
     if self.lyric.scan(/\[.*\]/i).blank?
       errors.add(:order, "No se encontraron versos en el texto. Ej: [CORO] ")
     end
+  end
 
+  def log_validation_state
+    Rails.logger.info "=== SONG VALIDATION STATE ==="
+    Rails.logger.info "Song ID: #{self.id}"
+    Rails.logger.info "New record?: #{new_record?}"
+    Rails.logger.info "User ID: #{user_id}"
+    Rails.logger.info "Group ID: #{group_id}"
+    Rails.logger.info "User present?: #{user.present?}"
+    Rails.logger.info "Group present?: #{group.present?}"
+    Rails.logger.info "================================"
+  end
+
+  def validate_user_on_create
+    Rails.logger.info "Custom user validation - new_record?: #{new_record?}, user blank?: #{user.blank?}"
+    if new_record? && user.blank?
+      Rails.logger.error "Song validation failed - User required for new songs"
+      errors.add(:user, "can't be blank")
+    else
+      Rails.logger.info "User validation passed - existing song or user present"
+    end
   end
 
 

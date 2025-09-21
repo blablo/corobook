@@ -82,13 +82,20 @@ class SongsController < ApplicationController
 
     # Filter out user_id and group_id to prevent them from being changed
     song_params = params[:song].except(:user_id, :group_id)
+    
+    Rails.logger.info "Song update - ID: #{@song.id}, user_id: #{@song.user_id}, group_id: #{@song.group_id}"
+    Rails.logger.info "Original params: #{params[:song].keys.join(', ')}"
+    Rails.logger.info "Filtered params: #{song_params.keys.join(', ')}"
 
     respond_to do |format|
       if @song.update_attributes(song_params)
+        Rails.logger.info "Song update successful - ID: #{@song.id}, title: #{@song.title}"
         format.html { redirect_to @song, notice: 'Song was successfully updated.' }
         format.json { head :no_content }
       else
-        Rails.logger.error "Song update failed: #{@song.errors.full_messages.join(', ')}"
+        Rails.logger.error "Song update failed - ID: #{@song.id}"
+        Rails.logger.error "Validation errors: #{@song.errors.full_messages.join(', ')}"
+        Rails.logger.error "Song state - user_id: #{@song.user_id}, group_id: #{@song.group_id}, new_record?: #{@song.new_record?}"
         format.html { render action: "edit" }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
