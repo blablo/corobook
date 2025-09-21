@@ -80,11 +80,15 @@ class SongsController < ApplicationController
     @song = Song.find(params[:id])
     authorize! :update, @song
 
+    # Filter out user_id and group_id to prevent them from being changed
+    song_params = params[:song].except(:user_id, :group_id)
+
     respond_to do |format|
-      if @song.update_attributes(params[:song])
+      if @song.update_attributes(song_params)
         format.html { redirect_to @song, notice: 'Song was successfully updated.' }
         format.json { head :no_content }
       else
+        Rails.logger.error "Song update failed: #{@song.errors.full_messages.join(', ')}"
         format.html { render action: "edit" }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end

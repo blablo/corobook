@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Song < ActiveRecord::Base
-  attr_accessible :author, :link, :lyric, :mood, :order, :reference, :title, :user_id, :group_id
+  attr_accessible :author, :link, :lyric, :mood, :order, :reference, :title
   belongs_to :user
   belongs_to :group
   has_many :songbook_songs
@@ -10,7 +10,7 @@ class Song < ActiveRecord::Base
   validates :title, presence: true
   validates :lyric, presence: true
   validates :order, presence: true
-  validates :user, presence: true
+  validates :user, presence: true, on: :create
   validates :group, presence: true
   validate :validate_sintax
 
@@ -195,6 +195,8 @@ class Song < ActiveRecord::Base
     # Check if user belongs to the same group as the song
     return false unless self.group.present?
     
+    # User can edit if they belong to the same group as the song
+    # (song user_id can be nil for legacy songs)
     user.group == self.group || user.groups.include?(self.group)
   end
 

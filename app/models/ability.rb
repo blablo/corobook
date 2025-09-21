@@ -15,6 +15,7 @@ class Ability
         can :create, Song
         can [:update, :destroy], Song do |song|
           # Can manage songs from their primary group or any group they belong to
+          # (song user_id can be nil for legacy songs - only check group)
           song.group.present? && (
             user.group == song.group || 
             user.groups.include?(song.group)
@@ -38,6 +39,7 @@ class Ability
         can :create, Song
         can [:update, :destroy], Song do |song|
           # Can manage songs from their primary group or any group they belong to
+          # (song user_id can be nil for legacy songs - only check group)
           song.group.present? && (
             user.group == song.group || 
             user.groups.include?(song.group)

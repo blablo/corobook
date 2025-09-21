@@ -1,4 +1,12 @@
 %h1 Editar Canción
+
+- if @song.errors.any?
+  .alert.alert-error
+    %h4= "#{pluralize(@song.errors.count, "error")} prohibited this song from being saved:"
+    %ul
+      - @song.errors.full_messages.each do |message|
+        %li= message
+
 .row
   .col-sm-12
     =render 'form'
