@@ -72,27 +72,50 @@ class Song < ActiveRecord::Base
   # \b[CDEFGAB](?:#{1,2}|b{1,2})?(?:7?|m7?|sus2?)\b
 
   def hashed_lyric(show_chords = false)
+    Rails.logger.info "=== HASHED_LYRIC DEBUG ==="
+    Rails.logger.info "show_chords: #{show_chords}"
+    Rails.logger.info "Processing lyric with #{self.lyric.lines.count} lines"
+    
     hash = { }
     actual_verse = ""
 
-    self.lyric.each_line do |line|
+    self.lyric.each_line.with_index do |line, index|
+      Rails.logger.info "Line #{index + 1}: '#{line.chomp}'"
 
       if line =~ /\[.*]/
         actual_verse = line.scan(/\[(.*)\]/i)[0][0]
         hash[actual_verse] = []
+        Rails.logger.info "  -> Found verse header: '#{actual_verse}'"
       else
-        #        if line =~ /\b[CDEFGAB]m?7?\b/
         unless line.gsub(/\r\n/, '').blank?
-
-           if line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/
-            hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :chords} if show_chords
+          clean_line = line.gsub(/\r\n/, '')
+          is_chord_line = line =~ /\b[CDEFGAB](?:#|b)?(?:m|maj|dim|aug|sus[24]?)?(?:7|9|11|13)?\b/
+          
+          Rails.logger.info "  -> Clean line: '#{clean_line}'"
+          Rails.logger.info "  -> Is chord line: #{!!is_chord_line}"
+          Rails.logger.info "  -> Current verse: '#{actual_verse}'"
+          
+          if is_chord_line
+            Rails.logger.info "  -> Adding as CHORD (show_chords: #{show_chords})"
+            hash[actual_verse] << { line: clean_line, type: :chords} if show_chords
           else
-            hash[actual_verse] << { line: line.gsub(/\r\n/, ''), type: :text}
+            Rails.logger.info "  -> Adding as TEXT"
+            hash[actual_verse] << { line: clean_line, type: :text}
           end
+        else
+          Rails.logger.info "  -> Skipping blank line"
         end
       end
-
     end
+
+    Rails.logger.info "Final hash keys: #{hash.keys}"
+    hash.each do |verse, lines|
+      Rails.logger.info "Verse '#{verse}': #{lines.count} lines"
+      lines.each_with_index do |line_obj, i|
+        Rails.logger.info "  #{i + 1}. [#{line_obj[:type]}] #{line_obj[:line]}"
+      end
+    end
+    Rails.logger.info "=== END HASHED_LYRIC DEBUG ==="
 
     return hash
   end
